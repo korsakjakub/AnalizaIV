@@ -1,0 +1,222 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+		Dzisiaj czas na przykłady. Wiemy, że rozwiązania bardzo zależą od warunków początkowych. Przypomnijmy co nazywaliśmy problemem dobrze postawionym:
+		\begin{itemize}
+				\item ma rozwiązania
+				\item które są jednoznaczne
+				\item i które w sposób ciągły zależą od warunków początkowych
+		.\end{itemize}
+		Osobne pytanie dotyczy stabilności (mówiliśmy ostatnio o zasadzie maksimum), klasie rozwiązania (ostatnio po kolokwium) itp. Większość oczekiwań ma naturę zdroworozsądkową, na zasadzie \textit{fizyczne vs. niefizyczne}.
+		\begin{przyklad}
+				(stabilność)\\
+				Równanie Laplace'a w 2-D
+				\[
+				\begin{cases}
+						\frac{\partial ^2u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0& u:\mathbb{R}^2\to \mathbb{R}\\
+						u(x,0) = e^{-\sqrt{k} }\cos(kx)&k>0
+				\end{cases}
+				.\]
+				Zauważmy, że funkcja
+				\[
+						u(x,y) = e^{-\sqrt{k} }\cos(ks) \cosh(ky)
+				\]
+				spełnia warunek początkowy oraz równanie, bo
+				\[
+						u_{,x x} = e^{-\sqrt{k} }\left( -k^2\cos(kx) \right) \cosh(ky),\quad u_{,y y} = e^{-\sqrt{k} }\cos(kx) \left( k^2 \cosh(ky) \right)
+				.\]
+				O co chodzi ze stabilnością? Zacznijmy zwiększać $k$ w warunku początkowym
+				\[
+						\lim_{k \to \infty}u(x,0) = e^{-\sqrt{k} }\cos(kx) \to 0
+				,\]
+				czyli dla $k\to \infty$, mamy $u(x,0) = 0$ i takiego zachowania moglibyśmy oczekiwać od rozwiązania. Ale jest problemik. Otóż
+				\[
+						\left| \underset{x}{\sup} u(x,y) \right| = e^{-\sqrt{k} }\cosh(ky) = e^{-\sqrt{k} }\frac{e^{ky}+e^{-ky}}{2} \to \infty
+				\]
+				oraz
+				\[
+						\left.u(x,y,k)\right|_{x,y=const} \to \infty
+				.\]
+				Ale już
+				\[
+						u(x,y,k) \overset{y\to 0}{\to } e^{-\sqrt{k} }\cosh(kx) \to 0
+				.\]
+				No nie jest to stabilne, jeżeli warunek początkowy dąży do zera.
+		\end{przyklad}
+		\begin{przyklad}
+				(struna 1-D, warunki początkowe)\\
+				Rozważmy strunę
+				\[
+				\begin{cases}
+						\frac{\partial ^2u}{\partial x^2} = \frac{\partial ^2u}{\partial t^2} & u(x,t): [0,1]\times\mathbb{R}_+\to \mathbb{R}\\
+						u(x,0) = \begin{cases}
+								x& 0\le x \le d\\
+								\frac{d(1-x)}{1-d}&d < x \le 1
+						\end{cases}\\
+						u_{,t}(x,0) = 0 \\
+						u(0,t) = u(1,t) = 0
+				\end{cases}
+				.\]
+				Możemy separować zmienne
+				\[
+						u(x,t) = X(x) T(t)
+				.\]
+				Po podstawieniu
+				\[
+						\frac{X''}{X} = \frac{T''}{T} = -\lambda
+				,\]
+				więc standardowo $X'' + \lambda X = 0$ oraz $T'' + \lambda T = 0$, ale jeżeli struna zamocowana jest na obu końcach, to
+				\[
+						X(0) = X(1) = 0
+				.\]
+				Czyli $\lambda$ nie może być $\le 0$. Zatem $X(x) = c_1 \cos(\lambda x) + D_1 \sin(\lambda x)$. Dzięki czemu otrzymujemy
+				\[
+						c_1 = 0,\quad X(x) = D_1 \sin(\lambda x)
+				\]
+				i $\lambda = k\pi$, $k=1,2,3,\ldots$. Zatem
+				 \[
+						 T(t) = A_k \cos(\pi t) + B_k \sin (\pi t)
+				,\]
+				\[
+						u(x,t) = \sum_{k=1}^{\infty} \left( A_k \cos(\pi t) + B_k \sin (\pi t) \right) \sin(\pi x)
+				.\]
+				Wiemy, że $u_{,t}(x,0) = 0$, czyli $B_k = 0$ i mamy warunek
+				\[
+						u(x,0) = \sum_{k=1}^{\infty} A_k \sin(\pi x) = \begin{cases}
+								x & 0\le x \le d\\
+								\frac{d(1-x)}{1-d} & d < x \le 1
+						\end{cases}
+				.\]
+				Pamiętamy, że policzenie $A_k$ sprowadza się do całki
+				\[
+						A_k = \frac{2}{1}\int\limits_0^1 \varphi(x) \sin(\pi k x)dx,\quad \varphi(x) = \begin{cases}
+								x&0\le x\le d\\
+								\frac{d(1-x)}{1-d}& d<x\le 1
+						\end{cases}
+				.\]
+				Całka da się policzyć.
+				 \[
+						 A_k = \frac{2 \sin(k\pi d)}{\pi^2 (1-d) k^2}
+				.\]
+				Wynik w postaci jednej funkcji (bez przypadków) nie musi nas dziwić, bo transformata impulsu typu trójkąt też daje jedno wyrażenie. Zatem
+				\[
+						u(x,t) = \frac{2}{\pi^2(1-d)} \sum_{k=1}^{\infty} \frac{1}{k^2}\sin(k \pi d) \sin(k \pi x) \cos(k \pi t)
+				\]
+				i widzimy, że szereg jest zbieżny jednostajnie, więc do $\varphi(x)$ dąży.\\
+				A czy spełnia równanie falowe?
+				\[
+						u_{,t t} = \frac{2}{\pi^2(1-d)} \sum_{k=1}^{\infty} \sin(k \pi d) \sin(k \pi x)\sin(k \pi t) (k\pi)^2 \frac{(-1)}{k^2}
+				\]
+				i mamy szereg rozbieżny z wyjątkiem punktów o współrzędnej całkowitej.		\end{przyklad}
+				 Widzimy więc, że nie potrzeba bardzo wyrafinowanych warunków brzegowych by równanie falowe sie wysypało - gdybyśmy chcieli modelować naciągnięcie i zwolnienie struny - to jakiej funkcji byśmy użyli?\\
+				Można myśleć o tym że trzeba w jakiś sposób wygładzić dziubek funkcji.
+				Na przykład zakładając, że
+				\[
+						\varphi(x) = x(1-x)
+				.\]
+				Można sprawdzić w domu, czy druga pochodna rozwiązania zajmuje się lepiej (hehe). Do stabilności rozwiązań jeszcze wrócimy. Zastanówmy się teraz nad problemami odwrotnymi.
+				\\
+				Mamy równanie różniczkowe
+				\[
+						\frac{dN}{dt}= -k N(t),\quad N(0) = N_0
+				.\]
+				Znając $N_0$ i $k$ znamy $N(T)$. A gdybyśmy znali tylko $N(t_k) = f_k$ i szukali $N_0$ i  $k$? \\
+				Trochę analogiczny problem do odtwarzania trasy autobusu znając trajektorię kasownika.
+				\begin{przyklad}
+						Równanie
+						\[
+								\frac{d^2u}{dt^2} = q(t),\quad t\in [0,\tau],\quad u(0) = u_{,t}(0) = 0
+						.\]
+						Zazwyczaj znamy $q(t)$ i szukamy $u(t)$. Wyobraźmy sobie, że tym razem znamy $u(t)$ i szukamy $q(t)$. Jak stabilne jest to poszukiwanie?\\
+						Niech
+						\[
+								u_n(t) = u(t) + \frac{1}{n}\cos(nt)
+						.\]
+						Jak daleko od $q(t)$ będzie $q_n(t)$? Jeżeli $u(t)$ będzie takie, że $u_{,t t} = q(t),$ to \[
+								\frac{d^2u_n}{dt^2} = u_{,t t} - n \cos(nt) = \underbrace{q(t) = n \cos(nt)}_{q_n}
+						.\]
+						Wtedy $\Vert u_n(t) - u(t) \Vert \to 0$, ale $\Vert q - q_n \Vert = \Vert n \cos(nt) \Vert \not\to 0!$ Mamy więc niestabilność ze względu na zaburzenia dla problemu odwrotnego a trudno powiedzieć, że równanie było bardzo wyrafinowane.
+				\end{przyklad}
+				\begin{przyklad}
+						(równanie przewodnictwa, ale trzymamy końce pręta w lodzie)\\
+						\[
+						\begin{cases}
+								u_{,t} = u_{,x x}& 0< x< \pi, t>0\\
+								u(0,t) = u(\pi,t) = 0\\
+								u(x,0) = q(x)& 0\le x\le \pi
+						\end{cases}
+						.\]
+						\textbf{Problem:} mając wartość funkcji $u(x,t)$ dla $t=\tau$ chcemy znaleźć $q(t)$ czyli rozwiązać równanie przewodnictwa do tyłu w czasie (jaka jest temperatura wszechświata w $t = 0?$ :)\\
+						Zatem niech  $u(x,\tau) = f(x)$ dla $0\le x \le \pi$, pytamy o model żelazka (i krasnala co je przykłada do pręta).\\
+						Separacja zmiennych $u(x,t) = X(x)T(t)$, czyli
+						\[
+								\frac{T'}{T} = \frac{X''}{X} = -\lambda
+						.\]
+						Czyli $X'' + \lambda X = 0$ oraz $T' + \lambda T = 0$. Pręt ma końce w lodzie, więc $X(x) = \sin(nx)$ i $\lambda = n^2$. Więc
+						\[
+								T(t) = A_n e^{-n^2t}
+						,\]
+						ostatecznie
+						\[
+								u(x,t) = \sum_{n=1}^{\infty} A_ne^{-n^2t}\sin(nx)
+						,\]
+						gdzie $A_n$ takie, że
+						\begin{itemize}
+								\item $t = 0$ \\
+										\[
+												u(x,0) = q(x) \implies A_n = \frac{2}{\pi}\int\limits_0^\pi q(x) \sin(nx)dx \overset{\text{def}}{=} q_n
+										.\]
+								\item $t = \tau$ \\
+										\[
+												u(x,\tau) = f(x) = \sum_{n=1}^{\infty} \underbrace{e^{-n^2\tau}q_n}_{f_n} \sin(nx)dx
+										.\]
+						\end{itemize}
+						Więc jeżeli rozwiniemy $f(x)$ w szereg fouriera
+						\[
+								f(x) = \sum_{n=1}^{\infty} f_n \sin(nx)dx
+						,\]
+						to znajdziemy $q_n = f_n e^{n^2\tau}$, $n\in \mathbb{N}$.\\
+						Chcielibyśmy, by wynik, czyli zrekonstruowane $u(x,t)$ było jednoznaczne, czyli tak
+						\[
+								\lim_{t \to 0^+}\int\limits_0^\pi \left| u(x,t) - q(x) \right| ^2 dx = 0
+						.\]
+						To oznacza, że szereg $\sum_{n=1}^{\infty} f_n^2e^{2n^2\tau}<\infty$ i widać, że to nie zadziała dla każdej $f\in \mathcal{L}^2(0,\pi).$
+				\end{przyklad}
+				\begin{przyklad}
+						(warunki brzegowe równania falowego)\\
+						Mamy równanie falowe dla membrany zamocowanej na prostokątnym stelażu.
+						\[
+						u_{,x x} - u_{,t t} = 0
+						.\]
+						Dla równania Laplace'a wiemy, że $u(x,t)$ byłoby tożsamościowo równe zero (bo na brzegach ma być zero - więc jak nie szarpniemy membrany to nie ma co się ruszać).\\
+						Separacja zmiennych
+						\[
+								\frac{X''}{X} = \frac{T''}{T} = -\lambda
+						.\]
+						Więc mamy dwa równania na oscylator
+						\begin{align*}
+								X'' + \lambda X &= 0\\
+								T'' + \lambda T &= 0
+						.\end{align*}
+						Wiemy, że $X(0) = X(\pi) = 0$, czyli po nałożeniu tych warunków na rozwiązanie ogólne dla $X(x)$
+						\[
+								X(x) = D_1 \sin(\lambda x) + E_1 \cos(\lambda x)
+						,\]
+						otrzymujemy $E_1 = 0$ i $\lambda = n^2$. Więc
+						\[
+								u(x,t) = \sum_{n=1}^{\infty} \sin(nx)\left( A_n \cos(nt) + B_n \sin(nt) \right)
+						.\]
+						Ale $u(x,0) = 0 \implies A_n = 0$ i
+						\[
+								u(x,\tau) = 0 \implies \sum_{n=1}^{\infty} B_n \sin(n\tau) \sin(nx) = 0 \underset{x\in [0,\pi]}{\forall}
+						.\]
+						Możemy zapytać o jednoznaczność wyliczenia $B_n$, gdy $\tau$ nieujemne, to $B_n = 0$, ale jeżeli  $\tau$ jest ujemne, to mamy nieskończenie wiele rozwiązań. Jak to się ma do podziału na wielkości fizyczne i niefizyczne? Miejmy te przykłady w głowie, gdy usłyszymy, że separacja zmiennych to po prostu naturalna, bezproblemowa procedura.
+
+
+				\end{przyklad}
+
+\end{document}

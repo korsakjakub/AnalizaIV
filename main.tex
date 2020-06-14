@@ -1,0 +1,110 @@
+\documentclass[a5paper, oneside]{memoir}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
+\addtolength{\topmargin}{0.2in}
+\addtolength{\textheight}{-.25in}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{polski}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RO, LE]{\thepage}
+\fancyhead[C]{Analiza IV}
+\let\LaTeXStandardTableOfContents\tableofcontents
+
+\renewcommand{\tableofcontents}{%
+\begingroup%
+\renewcommand{\bfseries}{\relax}%
+\LaTeXStandardTableOfContents%
+\endgroup%
+}%
+
+\chapterstyle{dash}
+
+
+\titleformat{\chapter}[block]
+  {\normalfont\LARGE}{\thechapter.}{1em}{\Large}
+\titlespacing*{\chapter}{0pt}{-19pt}{32pt}
+
+\newmdtheoremenv{tw}{Twierdzenie}
+\newmdtheoremenv{stw}{Stwierdzenie}
+\newmdtheoremenv{definicja}{Definicja}
+\newtheorem{pytanie}{Pytanie}
+\newtheorem{przyklad}{Przykład}
+\newtheorem{uwaga}{Uwaga}
+
+\DeclareMathOperator{\ilwewn}{\lrcorner\,}
+\DeclareMathOperator{\supp}{supp}
+
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\sinc}{sinc}
+\graphicspath{
+    {"../img/"}
+    {"img/"}
+}
+
+\title{\Huge \textbf{{\tiny\textit{korona}}Wykłady z Analizy IV}}
+\author{Jakub Korsak}
+\date{II 2020 - VI 2020}
+\begin{document}
+\frontmatter
+\maketitle
+\pagebreak
+\tableofcontents
+\mainmatter
+\chapter{25.02.2020, \textbf{Wykład }\textit{O zbieżności szeregów Fouriera i próbach unikania schodków}}
+\subfile{tex/w1.tex}
+\chapter{28.02.2020, \textbf{Ćwiczenia }\textit{Metoda Frobeniusa}}
+\subfile{tex/c1.tex}
+\chapter{03.03.2020, \textbf{Wykład }\textit{Wstęp do równań cząstkowych, metoda charakterystyk}}
+\subfile{tex/w2.tex}
+\chapter{??.03.2020, \textbf{Ćwiczenia }\textit{Metoda charakterystyk}}
+\subfile{tex/c2.tex}
+\chapter{10.03.2020, \textbf{Wykład }\textit{Metoda charakterystyk}}
+\subfile{tex/w3.tex}
+\chapter{\textbf{Wykład }\textit{Metoda separacji zmiennych oraz wstęp do operatorów Sturma-Liouville'a}}
+\subfile{tex/w5.tex}
+\chapter{\textbf{Wykład }\textit{Operatory Sturma-Liouville'a}}
+\subfile{tex/w6.tex}
+\chapter{\textbf{Wykład }\textit{Czy można uporządkować poziomy energetyczne?}}
+\subfile{tex/w7.tex}
+\chapter{\textbf{Wykład }\textit{Równanie falowe}}
+\subfile{tex/w8.tex}
+\chapter{\textbf{Wykład }\textit{Droga do wzoru Kirchoffa}}
+\subfile{tex/w9.tex}
+\chapter{\textbf{Wykład }\textit{Czy z Kirchoffa w 3D można wyprowadzić 2D i 1D? Co to znaczy nadawanie morsem?}}
+\subfile{tex/w10.tex}
+\chapter{\textbf{Wykład }\textit{Całki Duhamela, jednoznaczność równania falowego}}
+\subfile{tex/w11.tex}
+\chapter{\textbf{Wykład }\textit{Jednoznaczność równania przewodnictwa}}
+\subfile{tex/w12.tex}
+\chapter{\textbf{Wykład }\textit{Przykłady (nie)fajności metody separacji zmiennych}}
+\subfile{tex/w13.tex}
+\chapter{\textbf{Wykład }\textit{Rozwiązywanie przez rozwijanie w szereg a później sprowadzenie na Ziemię przykładem Kowalewskiej}}
+\subfile{tex/w14.tex}
+
+
+\end{document}

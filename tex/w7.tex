@@ -1,0 +1,267 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+		Ostatnio szukaliśmy takich współczynników $c_1,c_2,\ldots,c_N$, by wyrażenie
+		\[
+				\left\Vert f - \sum_{n=1}^{N} a_n\psi_n \right\Vert
+		\]
+		było najmniejsze, jeżeli $f\in \mathcal{L}^2$, a $\psi_n$ - wektory własne operatora Sturma-Liouville'a.\\
+		Okazało się, że $a_n = \left<f|\psi_n \right>$ daje nam minimum, co więcej
+		\[
+		\sum_{n=1}^{N} \Vert a_n \Vert ^2 \le \Vert f \Vert ^2
+		,\]
+		więc szereg $\sum a_n$ jest zbieżny.\\
+		Potam pokazaliśmy, że jeżeli dla operatora Sturma-Liouville'a, poza warunkami na samosprzężoność
+		\[
+				\underset{f,g}{\forall} \left.p\left( f' \overline{g} - f \overline{g'}  \right)\right|_a^b = 0
+		,\]
+		gdzie $Lf = -\frac{1}{r}\left( \left( pf' \right) ' + qf \right) $ spełniony będzie warunek $-\left( pf' \right) \overline{f} |_a^b \ge 0$ i $g(x) \le 0$, to wtedy wartości własne operatora $L$ będą większe od zera. Pokazaliśmy to przy użyciu operatora
+		\[
+				R(u) = \frac{\left<Lu|u \right>}{\left<u|u \right>}
+		,\]
+		dla którego $R(\psi_n) = \lambda_n$, jeżeli $\psi_n$ takie, że $L\psi_n = \lambda_n \psi_n$.\\
+		Uzyskane warunki sprawdziliśmy dla operatora $L = -\frac{d^2}{dx^2}$ i okazało się, że
+		\[
+		\lambda_n = n^2 \pi^2,\quad n = 1,2,3,\ldots
+		.\]
+		Chcielibyśmy pokazać, że dla wartości własnych operatora Sturma-Liouville'a
+		\[
+		\lim_{n \to \infty}\lambda_n = \infty
+		,\]
+		co więcej zbiór wartości własnych można uporządkować tak, że
+		\[
+		\lambda_1 < \lambda_2 < \ldots
+		.\]
+		\begin{proof}
+				Dowód zrobimy dla operatora S-L z następującymi warunkami brzegowymi
+				\begin{equation}
+						-\left( \left( pf' \right) ' - qf \right) = \lambda r f,\quad f(0) = f(1) = 0
+						\label{eq:brzegisl}
+				\end{equation}
+				O takim równaniu wiemy, że spełnia wszystkie możliwe warunki fajności
+				\[
+						\underset{f,g}{\forall} \left.p\left( f' \overline{g}  - f \overline{g'}  \right)\right|_0^1 = 0,\quad -\left.\left( pf' \right) \overline{f}\right|_0^1,\quad g(x) \le 0
+				.\]
+				(czy jednej wartości własnej odpowiada dokładnie jeden waktor własny? to musimy ustalić, na razie założymy, że tak jest).\\
+				O równaniu \ref{eq:brzegisl} wiemy zatem, że $\lambda_1,\ldots,\lambda_n > 0$, czyli wektorów własnych o wartościach własnych równych zero nie ma, czyli problem jednorodny.
+				\[
+						\left( pf' \right) ' - qf = 0,\quad f(0) = f(1)
+				.\]
+				To nie ma innych rozwiązań niż $f = 0$.\\
+				Wiemy, że z operatorem $L$ możemy związać wektory własne i wartości własne
+				\[
+				\begin{matrix}
+						\lambda_1,&\lambda_2,&\ldots,&\lambda_n,\ldots\\
+						\psi_1,&\psi_2,&\ldots,&\psi_n,\ldots
+				\end{matrix}
+				\]
+				oraz, że jeżeli znajdziemy funkcję z $L^2$, np. $G(x)$, to do zestawu możemy dorzucić ciąg $c_k = \left<G|\psi_k \right>$
+				\[
+				c_1,c_2,c_3,c_4,\ldots,c_n,\ldots
+				,\]
+				taki, że szreg
+				\[
+				\sum_{n=1}^{\infty} \Vert c_n \Vert ^2
+				\]
+				jest zbieżny. W jaki sposób moglibyśmy pokazać, że
+				$\lambda_n\to \infty$? Znaleźć taką funkcję $G(x)$, że
+				\[
+				\Vert c_n \Vert ^2 = \left| \left<G|\psi_n \right>\right|^2 = \frac{1}{\lambda_n^2}
+				.\]
+				Bo ze zbieżności $\sum \frac{1}{\lambda_n^2}$ wyjdzie $\lim\limits_{n \to \infty}\lambda_n = \infty$.\\
+				Podsumowując, szukamy funkcji $G(x)$ takiej co spełnia te wszystkie warunki
+				\[
+				\Vert c_n \Vert ^2 = \left| \left<G|\psi_n \right>\right|^2 = \frac{1}{\lambda_n^2}
+				,\]
+				\[
+						\left( p\psi_n \right) ' - q\psi_n = -\lambda_n r \psi_n
+				,\]
+				\[
+						\psi_n(0) = \psi_n(1) = 0
+				.\]
+				Zadanie zapowiada się karkołomnie, dojście do odpowiedzi też. Pamiętamy, że mając równanie
+\[
+		\left( pw' \right) ' - qw = -F(x)
+,\]
+moglibyśmy je rozwiązać przy pomocy funkcji Greena, czyli spełniającej warunek
+\[
+		p\left( G(x,\xi)' \right) ' - p G(x,\xi) = -\delta(x-\xi)
+,\]
+bo wtedy
+\[
+w(x) = \int\limits_0^1 G(x,\xi)F(\xi)d\xi
+.\]
+Funkcję $G(x,\xi)$ łatwo zbudować, bo mamy do dyspozycji dwa rozwiązania
+\[
+		(pw_1')' - qw_1 = 0,\quad w_1(0) = 0 \text{ ale nie }w_1(1) = 0
+,\]
+\[
+		(pw_2')' - qw_2 = 0,\quad w_2(0) = 0 \text{ ale nie }w_2(0) = 0
+,\]
+Możemy złożyć $G$ :
+\[
+		G(x,\xi) = \begin{cases}
+				w_1(x)&x < \xi\\
+				w_2(x)&x \ge \xi
+		\end{cases}
+.\]
+Nałożymy teraz na $w_1$ i $w_2$ warunki
+\[
+		w_1(\xi) = w_2(\xi),\quad w_1'(\xi) - w_2'(\xi) = -1
+.\]
+Złóżmy razem następującą zależność
+\begin{equation}
+		\left( pw'(x) \right) ' - q(x)w(x) = -F(x),\quad w(x) = \int\limits_0^1 G(x,\xi) F(\xi)d\xi
+		\label{eq:w_{71}}
+\end{equation}
+\begin{equation}
+		\left( p\psi_n'(x) \right) ' - q\psi_n(x) = \underbrace{-\lambda_n \psi_n(x)r(x)}_{(\star)}
+\end{equation}
+Pamiętamy jeszcze, że $\left<u|v \right> = \int\limits_0^1 u(\xi)v(\xi)r(\xi)d\xi$. Jeżeli teraz za $F(x)$ wstawimy $(\star)$ do warunku \ref{eq:w_{71}}, to dostaniemy
+\[
+		\underset{x\in [0,1]}{\forall} 	\psi_n(x) = \int\limits_0^1 \underbrace{G(x,\xi)}_{u(\xi)} \lambda_n \underbrace{\psi_n(\xi)}_{v(\xi)} r(\xi) d\xi = \lambda_n \underbrace{\left<G|\psi_n \right>}_{c_n}
+.\]
+Czyli $\underset{x\in [0,1]}{\forall}  \psi_n(x) = \lambda_n c_n$, gdzie $c_n$ jest takie, że szereg
+\[
+		\sum \Vert c_n \Vert ^2 \le \int\limits_0^1 \left| G(x,\xi) \right| ^2 d\xi \underset{x\in[0,1]}{\forall}
+.\]
+Czyli
+\[
+		\underset{x\in[0,1]}{\forall} \sum_{n=1}^{\infty} \frac{\left| \psi_n(x) \right| ^2}{\Vert \lambda_n \Vert^2 } \le \int\limits_0^1 \left| G(x,\xi) \right| ^2 d\xi
+.\]
+Zbieżnosć po lewej stronie jest zbieżnością bezwzględną, więc możemy wycałkować wszystko po $x$, pamiętając, że
+\[
+		\int\limits_0^1 \left| \psi_n(x) \right| ^2 dx = 1
+,\]
+bo $\psi$ - unormowane. Zatem
+\[
+		\sum_{n=1}^{\infty} \frac{1}{\left| \lambda_n \right| ^2}\le \underbrace{\int\limits_0^1 dx \int\limits_0^1 \left| G(x,\xi) \right| ^2 d\xi}_{\text{ograniczone}}
+.\]
+Czyli $\lim\limits_{n \to \infty}\lambda_n = +\infty$ i już.
+		\end{proof}
+		\begin{pytanie}
+				Dlaczego wartości własne funkcji Greena dla operatora S-L wynoszą $\frac{1}{\lambda_n}$? Intuicja z algebry:\\
+				Jeżeli $Av = \lambda v$, to mamy $v = \lambda A^{-1}v$, czyli $\frac{1}{\lambda}v = A^{-1}v$
+		\end{pytanie}
+		Wiemy już, że szereg $\sum \frac{1}{\lambda_n^2}$ jest zbieżny, czyli $\lambda_n \to \infty$. Chcemy pokazać, że można tak poprzestawiać elementy ciągu
+		\[
+				\left\{ \lambda_1,\ldots,\lambda_N,\ldots \right\}
+		,\]
+		że będą w kolejności rosnącej, co pozwoli nam też w jakiś sposób uporządkować wektory własne.
+		\begin{stw}
+				Zasada Rayleigh'a.\\
+				Niech $\psi_0,\ldots,\psi_n$ - zbiór wektorów własnych operatora S-L (samosprzężonego), $\lambda_1,\ldots,\lambda_n$ - wartości własne $\lambda_i > 0$.
+				Niech
+				\[
+				w_N \overset{\text{ozn}}{=} \left<\psi_0,\psi_1,\ldots,\psi_N \right>,\quad w_N^\perp = \xi u ,\quad \left<u|w_N \right> = 0
+				.\]
+				Wówczas
+				\[
+						\underset{c\in \mathbb{R}}{\exists}\quad \underset{u\in w_N}{\min} \frac{\left<Lu|u \right>}{\left<u|u \right>} = c
+				,\]
+				co więcej, $\underset{\varphi\in w_N^\perp}{\exists} $, że $L\varphi = c\varphi$.\\
+				($\varphi$ o takich własnościach oznaczymy przez $\psi_{N+1}$, a $c$ przez $\lambda_{N+1}$).
+		\end{stw}
+		\textbf{Obserwacja:} Powyższa procedura pozwoli na uporządkowanie zbioru wartości własnych i wektorów własnych - na razie jest to tylko ponumerowanie $\lambda_i$ i nie mamy jeszcze zależności typu $>,<$.
+		 \begin{proof}
+				 Pokażemy, że jeżeli $u\in w_N^\perp$, to $L(u)\in w_N^\perp$. Niech
+				 \[
+				 v = \sum_{n=0}^{N} d_n\psi_n
+				 .\]
+				 Wiemy, że
+				 \[
+				 \underset{n\in 0\ldots N}{\forall} \left<u|\psi_n \right> = 0
+				 .\]
+				 Policzmy sobie
+				 \begin{align*}
+						 \left<Lu|v \right> &= \left<u|Lv \right> = \left<u\left|\sum_{n=0}^{N} d_nL\psi_n \right.\right> = \\
+				 &= \sum_{n=0}^{N} \overline{d} _n \left<u|\lambda_n \psi_n \right> = \sum_{n=0}^{N} \overline{d} _n \lambda_n \left<u|\psi_n \right> = 0
+				 .\end{align*}
+				 Wiemy, że $R(u)$ jest ograniczone od dołu (pokazaliśmy to w poprzenim odcinku). Zbiór wartości $R(u)$ jest ograniczony od dołu. Załóżmy, że $R(u)$ osiąga swoje kresy (formalny dowód - poprzez własności funkcji Greena, tutaj odpuszczamy). Pokażemy część drugą stwierdzenia.\\
+				 Załóżmy zatem, że $\underset{u_{m,n}\in w_N^\perp}{\exists} $ takie, że $R(u_{m,n})$ jest najmniejsze. Oznacza to, że
+				 \[
+						 g(s) = R\left( u_{m,n}+s\cdot u \right) ,\quad s\in \mathbb{R},\quad u\in w_N^\perp
+				 \]
+				 ma minimum w zerze, czyli $g'(s=0) = 0$.
+Załóżmy, że $u$ jest funkcją rzeczywistą
+\[
+		g(s) = \frac{\left<L(u_{m,n}+su) \left| u_{m,n}+su\right. \right> }{\left<u_{m,n}+su \left| u_{m,n}+su\right. \right> }
+.\]
+
+Ale
+\begin{align*}
+		\left<u_{m,n}+su \left| u_{m,n}+su\right. \right> _{,s}&= \left<u_{m,n} \left| u_{m,n}+su\right. \right> _{,s} + \left<u_{m,n}+su \left| u_{m,n}\right. \right> _{,s} +\\
+		&+\left( s^2 \left<u \left| u\right. \right>  \right) _{,s} = \left<u_{m,n} \left| u\right. \right> + \left<u \left| u_{m,n}\right. \right> + 2s \left<u \left| u\right. \right>
+.\end{align*}
+Analogicznie
+\begin{align*}
+		\left<L\left( u_{m,n} \right) +sL(u) \left| u_{m,n}+su\right. \right> _{,s} &= \left<L\left( u_{m,n} \right)  \left| u_{m,n}+su\right. \right> _{,s} + \\
+				 &+ \left<L\left( u_{m,n} \right) + sL(u) \left| u_{m,n}\right. \right> _{,s} + \left( s^2 \left<L(u) \left| u\right. \right> \right) _{,s} =\\
+				 &= \left<L\left( u_{m,n} \right)  \left| u\right. \right> + \left<L(u) \left| u_{m,n}\right. \right> + 2s \left<L(u) \left| u\right. \right>
+.\end{align*}
+Liczymy teraz pochodną $g $
+\[
+		\left. g'(s)\right|_{s=0} = \left.\frac{(\Box)'}{\Delta}\right|_{s=0} - \left.\frac{\Box \Delta'}{\Delta^2}\right|_{s=0} = \frac{1}{\Delta}\left.\left( \Box' - \frac{\Box \Delta'}{\Delta} \right) \right|_{s=0}
+.\]
+\[
+		R(u_{m,n}) = \frac{\left<L(u_{m,n}) \left| u_{m,n}\right. \right>}{\left<u_{m,n} \left| u_{m,n}\right. \right> }
+.\]
+\begin{align*}
+		\left.g'(s)\right|_{s=0} &= \frac{1}{\left<u_{m,n} \left| u_{m,n}\right. \right> } \Big( \left<L(u_{m,n}) \left| u\right. \right> + \left<L(u) \left| u_{m,n}\right. \right> - \\
+		&- \frac{\left<L(u_{m,n})|u_{m,n}\right>}{\left<u_{m,n} \left| u_{m,n}\right. \right> }\left( \left<u_{m,n} \left| u\right. \right> + \left<u \left| u_{m,n}\right. \right>  \right)  \Big)=\\
+		&=\frac{1}{\left<u_{m,n} \left| u_{m,n}\right. \right> }\left( \left<L(u_{m,n}) - R(u_{m,n})u_{m,n} \left| u\right. \right> + \left<u \left| L(u_{m,n})-R(u_{m,n})u_{m,n}\right. \right>  \right)
+.\end{align*}
+				 $L(u_{m,n}) = R(u_{m,n})u_{m,n}$, czyli watość $R(u)$ dla $u_{m,n}$ jest wartością własną funkcji $u_{m,n}$. Zatem, jeżeli $u_{m,n}\in w_N^\perp$, gdzie $w_N = \left( \psi_0,\ldots,\psi_N \right) $, to
+				 \[
+						 u_{m,n} \overset{\text{ozn}}{=} \psi_{N+1},\quad R(u_{m,n}) = \lambda_{N+1}
+				 \]
+				 i możemy porządkować dalej, bo weźmiemy kolejny zbiór $w_{N+1}^\perp$, dla którego znajdziemy nowe $u_{m,n}$ i tak dalej.
+		 \end{proof}
+		 \textbf{Obserwacja:}
+		 \[
+				 \underset{\psi\in w_N^\perp}{\forall} R(\psi) \ge \lambda_{N+1}
+		 .\]
+		 Czyli następne wartości własne  dla $w_{N+1}^\perp \subset w_N^\perp$ będą coraz większe.
+		 \begin{tw}
+		 		Niech $f\in \mathcal{L}^2$, $J_m = f - \sum_{k=1}^{m} c_k\psi_k,$ $c_k = \left<f \left| \psi_k\right. \right> $. Wówczas
+				 \[
+				 \Vert J_M \Vert^2 \underset{m\to\infty}{\longrightarrow}  0
+				 .\]
+				 (pamiętamy, że $\left<\psi_k \left| \psi_i\right. \right> = \delta_{ki}$).
+		 \end{tw}
+		 \begin{proof}
+		 		Zauważmy, że $\underset{i\le m}{\forall} $ mamy $\left<J_m \left| \psi_i\right. \right> = 0$, bo
+				 \[
+				 \left<J_m \left| \psi_k\right. \right> = \left<f \left| \psi_i\right. \right> - \sum_{k=1}^{m} c_k \left<\psi_k \left| \psi_i\right. \right> = c_i - c_i = 0
+				 .\]
+				 Zatem $J_m\in w_m^\perp$ - od wektora odjęliśmy $k$ składowych.
+				 Pamiętamy, że $\underset{\psi\in w_N^\perp}{\forall} R(\psi) \ge \lambda_{N+1}$, czyli
+				 \[
+						 R(J_m) \ge \lambda_{m+1}  \implies \frac{\left<LJ_m \left| J_m\right. \right> }{\left<J_m \left| J_m\right. \right> } \ge \lambda_{m+1}
+				 .\]
+				 Czyli $\left<J_m \left| J_m\right. \right> \le \frac{1}{\lambda_{m+1}}\left<LJ_m \left| J_m\right. \right> .$ Policzymy teraz prawą stronę
+				 \begin{align*}
+						 &\left<L\left( f - \sum_{k=1}^{m} c_k\psi_k \right)  \left| f - \sum_{k=1}^{m} c_k\psi_k\right. \right> = \left<Lf \left| f\right. \right> +\\
+						 &- \left<\sum_{k=1}^{m} c_k\lambda_k\psi_k \left| f\right. \right> - \left<f \left| \sum_{k=1 }^{m} c_k\lambda_k\psi_k\right. \right> + \left<\sum_{k=1}^{m} c_k\psi_k \left| \sum_{i=1}^{m} c_m\psi_m\right. \right> = \\
+						 &= \left<Lf \left| f\right. \right> - \sum_{k=1}^{m} \lambda_kc_k \overline{c_k} - \sum_{k=1}^{m} \overline{c_k} \lambda_k c_k + \sum_{k=1}^{m} c_k \overline{c_k}
+				 .\end{align*}
+				 Zatem
+				 \[
+						 \left<J_m \left| J_n\right. \right> \le \frac{1}{\lambda_{m+1}}\left( \left<Lf \left| f\right. \right> + const \right)
+				 .\]
+				 Czyli $\left<J_m \left| J_m\right. \right> \to 0$
+		 \end{proof}
+		 Niech $L = - \frac{d^2}{dx^2}$ na zbiorze
+		 \[
+				 U = \left\{ u\in \mathcal{L}^2, u(0) = u(1) = 0 \right\}
+		 .\]
+		 Wiemy, że wartości własne $L$ to $n^2\pi^2$ a wektory własne to $\sin(n\pi x)$. Niech $u_1 = x(1-x)$, $u_1\in U$. Policzmy
+		 \[
+				 R(u) = \frac{\left<-2 \left| x(1-x)\right. \right> }{\left<x(1-x) \left| x(1-x)\right. \right> } = 10
+		 .\]
+		 Widzimy, że $R(u) \ge \lambda_1$ dla $n=1$. $10 > \pi^2$ i już.
+\end{document}

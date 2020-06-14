@@ -1,0 +1,176 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+Na ostatnim wykładzie udało nam się pokazać w jaki sposób można pokazać jednoznaczność dla równania falowego niejednorodnego (co prawda w 1-D i z dodatkowymi założeniami, ale jednak). Przy okazji wprowadziliśmy wielkość, która może stanowić punkt wyjścia dla rozważań o tym, czym może być i jak zdefiniować energię dla pola (czy fali $u(x,t)$ ) czyli obieku, który nie jest tak lokalizowalny jak np. kamień. Dzisiaj zobaczymy co można powiedzieć o jednoznaczności dla równania przewodnictwa (dyfuzji).\\
+Przypomnijmy sobie najpierw jak wyglądało rozwiązanie równania dyfuzji:
+\[
+\begin{cases}
+		\frac{\partial u}{\partial t} = k \Delta u & x\in \mathbb{R}^3, t>0\\
+		u(x,0) = f(x)& u: \mathbb{R}^3\times[0,\infty[\to \mathbb{R}
+\end{cases}
+.\]
+Rozwiązanie (w 1-D) to
+\[
+		u(x,t) = \phi \star f = \int\limits_{-\infty}^{+\infty}\phi(x-s,t)f(s)d s, \phi(x,t) = \frac{1}{4\pi k t}e^{-\frac{x^2}{4 k t}}
+.\]
+Czyli
+\[
+		u(x,t) = \begin{cases}
+				\int\limits_{-\infty}^{+\infty}\frac{1}{4\pi kt}e^{\frac{-(x-s)^2}{4kt}}f(s)d s& t>0\\
+				f(x)& t = 0
+		\end{cases}
+.\]
+A dla 3-D,
+\[
+		u(\mathbf{x}, t) = \frac{1}{\left( 4\pi kt \right) ^{\frac{3}{2}}}\iiint\limits_{\mathbb{R}^3} e^{-\frac{\mathbf{x} - \mathbf{s}}{4kt}} f(\mathbf{s})d\mathbf{s}
+.\]
+Funkcja $f$ musiała dać się transfourierować, pamiętamy, że zachowanie rozwiązania jest inne niż równania falowego - wagładzanie + natychmiastowość.\\
+Zauważmy, że jeżeli $f(x)$ wyglądałoby jak pojedynczy impuls, to w przeciwieństwie do równania falowego w 3-D, gdzie impuls zacząłby przemieszczać się niezaburzony (na pewno? a co z wysokością?), to w przypadku równania przewodnictwa, sygnał błyskawicznie się wygładza. Co więcej, rozchodzi się natychmiastowo. Weźmy $\supp f = 1$ m, $t = \frac{1}{3\times 10^8}$, $x = 5\times 10^10$, wtedy $u(x,t) \neq 0$. Nasze doświadczenia z prętem metalowym w ognisku wskazują na konieczność poprawu modelu (dla chętnych).\\
+\begin{tw}
+		Przypadek skończony - jednoznaczność
+\end{tw}
+\begin{proof}
+Wyobraźmy sobie równanie przewodnictwa z warunkami początkowymi:
+\[
+\begin{cases}
+		u_{,t} - ku_{,x x} = f(x)&0 \le x \le L, t>0\\
+		u(x,0) = \phi(x)\\
+		u(0,t) = g(t)& u(L,t) = h(t)
+\end{cases}
+.\]
+Załóżmy, że istnieją $u_1$ i $u_2$ spełniające ww. równanie. Wówczas $u = u_1(x,t) - u_2(x,t)$ spełnia równanie
+\[
+\begin{cases}
+		u_{,t} - u_{,x x} = 0\\
+		u(x,0) = 0\\
+		u(0,t) = u(L,t) = 0
+\end{cases}
+.\]
+Zobaczmy, co można uzyskać z metod energetycznych:
+\[
+u\frac{\partial u}{\partial t} = k u \frac{\partial ^2 u}{\partial x^2}
+.\]
+\[
+		\int\limits_0^L \frac{1}{2}\frac{\partial }{\partial t} (u(x,t))^2 dx = k \int\limits_0^L u u_{,x x}dx = \left.k u u_{,x}\right|_0^L - \int\limits_0^L \left( \frac{\partial u}{\partial x}  \right) ^2 dx
+.\]
+Czyli
+\[
+		\frac{\partial }{\partial t} \left( \frac{1}{2}\int\limits_0^L \left( u(x,t) \right) ^2 dx \right) = - \int\limits_0^L \left( \frac{\partial u}{\partial x}  \right) ^2 dx + \text{coś co znika na brzegach}
+.\]
+Widać, że $E'(t) < 0$, czyli $E(t)$ - malejące, więc:
+\[
+		0 \le \int\limits_0^L \left( u(x,t) \right) ^2 dx \le \int\limits_0^L \left( u(x,0) \right) ^2 dx
+.\]
+Ale $u(x,0)$ jako różnica dwóch rozwiązań z tym samym warunkiem dla $t=0$ też wynosi zero i mamy jednoznaczność.
+\end{proof}
+
+Jak widać, dużo można wyciągnąć z samej struktury równań, chcemy teraz odpowiedzieć na następne pytanie: mamy kawałek (prostokątny) blachy i go jakoś podgrzewamy z jednego końca. Pytanie: czy gdzieś w środku (wewnątrz) blachy temperatura może wzrosnąć do wyższej niż zadana na brzegu?\\
+Przy fali akustycznej tak się zdarza, mamy przecież interferencję, możemy skrzyżować kilka wiązek itp. Czy jest to możliwe dla równania przewodnictwa?\\
+\textbf{Intuicja:} weźmy równanie $\frac{\partial ^2}{\partial x^2} u(x,t) = 0$ w 1-D. Co możemy powiedzieć o funkcji $u$? (na chwilę założymy, że nie umiemy znaleźć jawnego rozwiązania). Na przykład to, żefunkcja $u(x,t)$ nie będzie miała minimum lub maksimum, bo w dowolnym $x$ i $t$ ma zawsze punkt przegięcia (a co z wyższymi pochodnymi?)\\
+Jeżeli teraz zapiszemy inne znane równanie $u_{,t t} = - \omega ^2 u$ dla $u\in \mathbb{R}$, to tam gdzie $u=0$, funkcja będzie miała punkt przegięcia, dalej dla $u$ - ujemnego, $u''$ będzie dodatnie i odwrotnie. Czyli jak będzie wyglądał wykres? (no prawie sinus, tylko odcinków między zerami a maksami nie ma).\\
+Weźmy teraz funkcję dwóch zmiennych. Dla maksimum $u''$ powinna być określona ujemnie
+\[
+		\left| \begin{bmatrix} u_{,t t}&u_{,t x}\\ u_{,xt}&u_{,x x} \end{bmatrix}  \right| = u_{,t t}u_{,x x} - (u_{,tx})^2 > 0
+.\]
+Jeżeli weźmiemy $u_{,t} = ku_{,x x}$, to jedyna szansa na maksimum lokalne, to $u_{,x x}<0$, czyli $u_{,t}<0$, czyli temperatura maleje. Ewolucja w czasie to powolne chłodzenie systemu, jeżeli w chwili $t=0$ zadaliśmy temperaturę początkową. Zatem gdzie może być maksimum? Chciałoby się powiedzieć, że na brzegu, co może oznaczać, że we wnętrzu blachy maksimum lokalnego nie będzie. Zauważmy, że mielibyśmy wtedy inny argument za jednoznacznością rozwiązań, bo funkcja
+\[
+		u(x,t) = u_1(x,t) - u_2(x,t) \text{ spełnia warunek }u(0,t) = u(L,t) = 0
+.\]
+Jeżeli wewnątrz blachy nie ma maksimum a na brzegu $u=0$, to znaczy, że wszędzie $u =0$.
+
+\textbf{A jeszcze inaczej?}\\
+A co się dzieje na drugim końcu blachy weźmy w chwili $t = T$?
+\[
+		\underset{h>0}{\forall} u(x,T) > u(x,T-h),\text{(maksimum)}
+.\]
+\[
+		\left.\frac{\partial u}{\partial T} \right|_{T} = \frac{v(x,T) - v(x,T-h)}{h} \ge 0 \implies u_{,x x}>0
+.\]
+Ale jeżeli $u_{,t} = ku_{,x x}$, to wtedy $u_{,t t}u_{,x x} - (u_{,tx})^2 < 0$ i sprzeczność.
+\begin{tw}
+		(Zasada maksimum)\\
+		Niech
+		\[
+				\mathcal{M} = \left\{ 0\le x \le L, 0 \le t \le T \right\} \subset\mathbb{R}^2
+		.\]
+		Niech \[
+				u(x,t) : \mathcal{M}\to \mathbb{R} \text{ - rozwiązanie równania przewodnictwa.}
+		\]
+		Wówczas największą wartość $u(x,t)$ osiągnie w chwili $t = 0$ lub dla $x = 0$ lub $x = L$.\\
+\end{tw}
+		\textbf{Uwaga:} Skoro $u\in \mathcal{C}^2(\mathcal{M})$ czyli na zbiorze zwartym, to wiadomo, że maksimum będzie, pytanie tylko gdzie?
+		\begin{proof}
+				Oznaczmy przez
+				\[
+						\Gamma = \left\{ (x,t)\in \mathcal{M}, t = 0 \lor x = 0 \lor x = L \right\}
+				,\]
+				czyli
+				\[
+						\partial \mathcal{M} = \Gamma \cup \left\{ (x,t)\in \mathcal{M}, t = T \right\}
+				.\]
+				Wtedy
+				\[
+						\underset{(x,t)\in \Gamma}{\max} u(x,t) = \underset{(x,t)\in \mathcal{M}}{\max} u(x,t)
+				.\]
+				(jest to słaba zasada maksimum), co więcej, można też pokazać, że
+				\[
+						\underset{(x,t)\in \mathcal{M}}{\max} > \underset{(x,t)\in \mathcal{M}\setminus \Gamma}{\max}
+				.\]
+				Niech $(x_0,t_0)\in \mathcal{M}\setminus\partial \mathcal{M}$, czyli punkt wewnętrzny. Jeżeli mamy mieć w tym punkcie maksimum, to $u_{,t}(x_0,t_0) = 0$ i $u_{,x}(x_0,t_0) = 0$. Jeżeli $u_{,x x}<0$, to sprawa jest załatwiona, bo wtedy
+				\[
+						u_{,t}(x_0,t_0) - k u_{,x x}(x_0,t_0) = -k u_{,x x}(t_0,x_0) > 0
+				\]
+				i równanie przewodnictwa nie jest spełnione (podobnie dla $u_{,x x}>0$). A co się dzieje, gdy $u_{,x x}(t_0,x_0) = 0$?\\
+				Niech $A = \underset{\mathcal{M}}{\max}\, u(x,T)$. Chcemy pokazać, że
+				\[
+						\underset{\mathcal{M}}{\max}\, u(x,t) \le A
+				.\]
+				Niech $v(x,t) = u(x,t) + \varepsilon x^2$ dla jakiegoś $\varepsilon>0$ (dla 3-D byśmy mieli $v(x,t) =u(x,t) + \varepsilon|x|^2$). Wówczas
+				\begin{equation}
+						\label{eq:fau}
+				v_{,t} - v_{,x x} = u_{,t} - ku_{,x x} - 2k\varepsilon < 0
+				\end{equation}
+				Załóżmy, że $v(x,t)$ ma maksimum lokalne na $\mathcal{M}\setminus\Gamma$, w punkcie $(x_0,t_0)$, $t_0<T$. Oznacza to, że $v_{,t} = 0,$ $v_{,x} = 0,$ $v_{,x x}\le 0$ i sprzeczność, bo $v_{,t} - k v_{,x x} < 0$ \eqref{eq:fau} a $v_{,t} = 0$, czyli $v_{,x x} > 0$.\\
+
+				Załóżmy, że $v$ ma maksimum dla $t = T$, w punkcie $(x_1,T)\in \partial \mathcal{M}$. Wtedy $v_{,x}=0,$ $v_{,x x}\le 0,$ $v_{,t}\ge 0$, bo w punkcie siodłowym nie ma maksimum. Więc
+				\[
+				v_{,t} - k\Delta v \ge 0
+				.\]
+				I sprzeczność z \eqref{eq:fau}.\\
+
+				Wniosek: maksimum istnieje jedynie na zbiorze $\Gamma$, czyli
+				\begin{align*}
+						u(x,t) + \varepsilon|x|^2 &\le \underset{(x,t)\in \Gamma}{\max} (u(x,t) + \varepsilon(x)^2) \le \\
+						&\le \underset{(x,t)\in \Gamma}{\max} u + \varepsilon c
+				.\end{align*}
+				gdzie $c = \underset{x\in \Gamma}{\max}\, x^2$ - ważne, że $T$ jest skończone.\\ Zatem
+				\begin{align*}
+						u(x,t) &\le A+\varepsilon(c-x^2)\\
+						u(x,t) &\le A+\varepsilon C
+				\end{align*}
+				dla dowolnego $\varepsilon>0$,
+				czyli
+				\[
+						\underset{(x,t)\in \Gamma}{\forall} u(x,t) \le M
+				.\]
+				Mocna zasada mówi, że maksimum jest osiągane na brzegach (jedynie) albo, że $u$ jest stałe na całym $\mathcal{M}$.
+		\end{proof}
+		Możemy pytać teraz o stabilność rozwiązań - widzimy, że mając dwa rozwiązania, dla których warunki brzegowe nie różnią się np. o co najmniej 7, zasada maksimum automatycznie mówi nam, że rozwiązania we wnętrzu nie będą różniły się bardziej.
+		\begin{przyklad}
+				(dygresja)\\
+				Wyobraźmy sobie cząstkę (1-D), która może iść albo w lewo albo w prawo, z prawdopodobieństwami $p$ i $q$. Załóżmy, że czas i przestrzeń są dyskretne. Chcemy policzyć jakie jest prawdopodobieństwo, że cząstka w chwili $t = N\tau$ znajduje się w położeniu $x = mL$.\\
+				Jeżeli założymy, że $p$ i $q$ nie zależą od czasu ani historii cząstki, to możemy zapostulować równanie stochastyczne:
+				\[
+						P_{n+1}(m) = p P_n(m-1)+qP_n(n+1)
+				.\]
+				Jeżeli na przykład $p = q = \frac{1}{2}$, to mamy równanie
+				\[
+						P_{n+1}(m) = \frac{1}{2}\left[ P_n(m-1) + P_n(m+1) \right] .
+				\]
+				Czyli średnia arytmetyczna z otoczenia w chwili $n$?
+		\end{przyklad}
+\end{document}

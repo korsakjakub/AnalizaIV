@@ -1,0 +1,236 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+		Na ostatnim wykładzie oglądaliśmy różne przypadki, w których maszynka równań różniczkowych nie zachowywała się tak, jakbyśmy chcieli. Widać też, że przypadki nie były dobrane pod kątem bardzo ekscentrycznych funkcji typu $x \sin\left( \frac{1}{x} \right) $. Możemy próbować zawężać dziedzinę dopuszczalnych warunków brzegowych ale kryteria "fizyczne", "niefizyczne" tym razem nam nie pomogą. Dzisiaj spróbujemy rozwiązań w postaci szeregu potęgowego. Dla oscylatora harmonicznego kiedyś nam się udało - wstawiliśmy szereg formalny, potem znaleźliśmy przepis na współczynniki i wyszedł $\sin(x)$ lub $\cos(x)$ jako rozwinięcie w szereg Taylora. Zobaczymy jak taka procedura zadziała w przypadku  2-D. Podobne podejście zastosowaliśmy w II semestrze, gdzie zamiast ogólnego przypadku, rozważaliśmy sytuację 2-D.\\
+		Wyobraźmy sobie, że szukamy funkcji $u:\mathbb{R}^2\supset\Omega\to\mathbb{R},$ spełniającą równanie
+		\begin{align*}
+				&a(x,y,u,u_{,x},u_{,y})u_{,x x} + 2b(x,y,u,u_{,x},u_{,y})u_{,xy} +\\
+				&+ c(x,y,u,u_{,x},u_{,y})u_{,y y} = -d(x,y,u,u_{,x},u_{,y})
+		.\end{align*}
+		Gdzie $a,b,c$ - funkcje, klasa do ustalenia. Nasze rozwiązanie zadaje jakąś powierzchnię $z = u(x,y)$, $(x,y)\in \Omega$ w  $\mathbb{R}^3$, musimy podać tylko warunek brzegowy na przykład
+		\[
+				\left.u(x,y)\right|_{c} =\left.h(x,y)\right|_{c}
+		,\]
+		gdzie $c$ - krzywa na płaszczyźnie $xy$, czyli  $c \subset \Omega$, a $h$ - jakaś zadana funkcja.\\
+		W przypadku równania II rzędu samo $h(x,y)|_c$ nie wystarczy, potrzebne jeszcze będą pochodne na brzegu, najpierw jednak sparametryzujmy $c$ na przykład tak
+		\[
+				c = \left\{ (x,y)\in \Omega, x = f(s), y = g(s), s\in I \subset \mathbb{R} \right\}
+		.\]
+		Przy takiej parametryzacji możemy zapisać
+		\[
+				\left.h(x,y)\right|_c = h(s) = h(f(s),g(s))
+		\]
+		i wprowadzić w $\mathbb{R}^3$ krzywą $\Gamma$ :
+		\[
+				\Gamma = \left\{ (x,y,z)\in \mathbb{R}^3, x = f(s), y = g(s), z = h(s), s\in I \right\}
+		.\]
+		\textbf{Plan:} Wybierzemy punkt $P\subset\Gamma$ i spróbujemy wokół tego punktu znaleźć wszystkie możliwe pochodne $u(x,y) :$
+		\[
+		u_{,x}|_P, u_{,y}|_P, u_{,x x}|_p,\ldots
+		.\]
+		Dzięki znajomości tych pochodnych, będziemy mogli zapisać $u(x,y)$ w postaci szeregu, czyli "wzoru Taylora" - w cudzysłowie, bo nie wiemy, czy będzie on zbieżny.
+
+		\textbf{trochę o warunkach brzegowych}\\
+		Nasze równanie jest drugiego stopnia więc na brzegu $\Gamma$
+ powinniśmy kontrolować także pochodne (zamiast $(x,y)$ może być $(t,x)$). Czyli
+ \[
+ \begin{cases}
+		 u(f(s), g(s))=h(s)\\
+		 u_{,x}(f(s),g(s)) = p(s)\\
+		 u_{,y}(f(s),g(s)) = q(s)
+ \end{cases}
+ .\]
+ Na brzegu zadajemy $h(s)$. Dlaczego nie $p(s)$ i $q(s)$? Bo krzywa $c(f(s),g(s))$ niekoniecznie musi współpracować ze współrzędnymi $(x,y).$\\
+ Zauważmy, że jeżeli
+ \begin{align*}
+		 h(s) &= u(f(s), g(s))\\
+		 \frac{\partial h}{\partial s} &= \frac{\partial u}{\partial x} \frac{\partial f}{\partial s} + \frac{\partial u}{\partial y} \frac{\partial q}{\partial s} = p(s)f'(s) + q(s)g'(s)
+ .\end{align*}
+ Czyli $p(s)$ i $q(s)$ nie są w pełni niezależne - składowa warunków brzegowych wzdłuż parametryzacji jest kontrolowana przez $\frac{\partial h}{\partial s} $. Co jest niezależnym elementem układanki? - Składowa normalna do $\Gamma$ w punkcie $P$, czyli
+ \[
+		 X(s) = \frac{\partial }{\partial n} u(f(s),g(s)) = \mathbf{n} \nabla u(f(s), g(s))
+ .\]
+ Ale jeżeli $\left( \frac{\partial f}{\partial s} , \frac{\partial g}{\partial s}  \right) $ - styczne do $c$, to
+ \[
+		 \left( -g'(s), f'(s) \right) \cdot \frac{1}{\sqrt{\left( f' \right) ^2 + \left( g' \right) ^2} }
+ \]
+ będą normalne. Więc
+ \[
+		 X(s) = -u_{,x}g'(s) + u_{,y}f'(s) \cdot \frac{1}{\sqrt{\left( f' \right) ^2 + \left( g' \right) ^2} }
+ ,\]
+ ostatecznie:
+\begin{align*}
+		u(f(s), g(s)) &= h(s)\\
+		u_{,x}(f(s), g(s)) &= p(s)\\
+		u_{,y}(f(s), g(s)) &= q(s)\\
+		p(s)f'(s) + q(s)g'(s) &= h'(s)\\
+		-p(s)g'(s) + q(s)f'(s) &= X(s)
+.\end{align*}
+W ten sposób zgraliśmy układ współrzędnych z geometrią $\Gamma$ w punkcie $P$. Oczywiście, znająć równanie krzywej $\Gamma$, czy $c$ możemy tak lokalnie dobrać układ współrzędnych, że $u_{,x}$ będzie np. normalny do $\Gamma$, a $u_{,y}$ styczny, a do tego $h(s)$ w punkcie $P$ będzie równe zero, bo naszew rozwiązanie jest zawsze lokalne. Czas więc na procedurę znajdowania pochodnych.\\
+Wiemy, że
+\begin{align*}
+		u_{,x}(f(s),g(s)) &= p(s)\\
+		u_{,y}(f(s),g(s)) &= q(s)
+.\end{align*}
+Po zróżniczkowaniu i dorzuceniu wyjściowego równania otrzymujemy
+\[
+\begin{cases}
+		p'(s) = u_{,x x}(f(s),g(s))f'(s) + u_{,xy}(f(s),g(s))g'(s) + 0u_{,yy}\\
+		q'(s) = 0u_{,x x} + u_{,yx}(f(s),g(s))f'(s) + u_{,yy}(f(s),g(s))g'(s)
+\end{cases}
+.\]
+\[
+		-d(f(s),g(s),h(s),p(s),q(s)) = a u_{,x x} + 2b u_{,x y} + cu_{,yy}
+.\]
+Gdzie $a = a(f(s),g(s),h(s),p(s),q(s))$ i analogicznie $b$ i $c$. Widzimy, że z powyższego układu wyliczymy $u_{,x x},u_{,xy},u_{,yy}$, jeżeli
+\[
+		\det \begin{bmatrix} f'(s)&g'(s)&0\\0&f'(s)&g'(s)\\a&2b&c \end{bmatrix} \neq 0
+.\]
+Widzimy tutaj jak istotne może być zgranie (albo nie) krzywej, na której zadamy warunki brzegowe z wewnętrzną strukturą równania wyznaczoną przez $a,b,c$.\\
+Jeżeli $\det | | \neq 0$, to możemy rozwiązać układ równań i wyznaczyć $u_{,x x}, u_{,xy}, u_{yy}$ w punkcie $P$. Co z wyższymi pochodnymi?\\
+Możemy zróżniczkować równanie po $\frac{\partial }{\partial x}, \frac{\partial }{\partial y}, \frac{\partial }{\partial z} $
+\begin{align*}
+		&-\left.d(x,y,u,u_{,x},u_{,y})\right|_P = \left.a\left(  \right) u_{,x x} + 2b\left(  \right) u_{,xy} + c\left( u_{,yy} \right)\right|_P\\
+		&\left.\frac{\partial }{\partial x} \left( -d(x,y,u,u_{,x},u_{,y}) \right) \right|_P = a\left(  \right) u_{,x x x} + 2b\left(  \right) u_{,xyx} + c\left(  \right) u_{yyx} +\\
+		&+ \left.\left( \frac{\partial a}{\partial x} u_{,x x}+ 2b \frac{\partial b}{\partial x} u_{,xy} + \frac{\partial c}{\partial x} u_{,yy} \right) \right|_P
+.\end{align*}
+Jest fajnie, bo ostatni wyraz znamy. Z drugiej strony
+\begin{align*}
+		&\frac{\partial }{\partial x} \left. \left( d(x,y,u=z,u_{,x},u_{,y} \right) \right|_P = d_{,x}(f(s),g(s),h(s),p(s),q(s)) + \\
+		&+ d_{,z}(f(s),g(s),h(s),p(s),q(s)) u_{,x}(f(s),g(s)) + \\
+		&+d_{,p}\left(  \right) u_{,x x}(f(s),g(s)) + \\
+		&+ d_{,q}\left(  \right) u_{,xy}(f(s),g(s))
+.\end{align*}
+Reasumując, $\text{coś, co znamy } = a u_{,x x x} + 2b u_{,x x y} + c u_{,x y y}.$ Do tego
+\begin{align*}
+		&\frac{d}{ d s}(u_{,x x}(f(s),g(s))) = u_{,x x x}f'(s) + u_{,x x y}(f(s),g(s))q'(s)\\
+		&\frac{d}{d s}(u_{,xy}(f(s),g(s))) = u_{,xyx}f'(s) + u_{,xyy}(f(s),g(s))q'(s)\\
+		&\frac{d}{ d s}(u_{,yy}(f(s),g(s))) = u_{,yyx}f'(s) + u_{,yyy}(f(s),g(s))q'(s)
+.\end{align*}
+I mamy układ równań
+\begin{align*}
+		a \cdot u_{,x x x} &&+&& 2b \cdot u_{,x x y} &&+&& c \cdot u_{,xyy} &&+&& 0\cdot u_{,yyy} &&=&& \heartsuit\\
+		f'(s) \cdot u_{,x x x} &&+&& g'(s) \cdot u_{,x x y} &&+&& 0 \cdot u_{,xyy} &&+&& 0\cdot u_{,yyy} &&=&& \spadesuit\\
+		0 \cdot u_{,x x x} &&+&& f'(s) \cdot u_{,x x y} &&+&& g'(s) \cdot u_{,xyy} &&+&& 0\cdot u_{,yyy} &&=&& \diamondsuit\\
+		0 \cdot u_{,x x x} &&+&& 0 \cdot u_{,x x y} &&+&& f'(s) \cdot u_{,xyy} &&+&& g'(s)\cdot u_{,yyy} &&=&& \clubsuit\\
+.\end{align*}
+Warunek dostajemy taki
+\[
+		\det \begin{bmatrix} a&2b&c&0\\f'(s)&g'(s)&0&0\\0&f'(s)&g'(s)&0\\0&0&f'(s)&g'(s) \end{bmatrix} \neq 0
+,\]
+czyli to samo co wcześniej. Jeżeli założymy, że $a,b,c,d$ są różniczkowalne tak bardzo, że aż do dowolnego stopnia (analityczne), to znaleziony ciąg pochodnych odtworzy nam szukany szereg. Jest tylko mały detal związany z pokazaniem, że szereg taki jest zbieżny (smileyface.jpg). Ale za to w nagrodę mamy istnienie rozwiązania (bo wlaśnie je zbudowaliśmy) oraz twierdzenie, że gdy $a,b,c,d$ są analityczne, to innego rozwiązania nie ma.
+\begin{pytanie}
+		Co się stanie, gdy
+		\[
+				\det \begin{bmatrix} a&2b&c\\f'(s)&g'(s)&0\\0&f'(s)&g'(s) \end{bmatrix} = 0?
+		\]
+		Widzimy, że nie da się wtedy odnaleźć wyższych pochodnych i metoda nie działa.
+\end{pytanie}
+\begin{przyklad}
+		(ale też trochę pytanie)\\
+		Jak wygląda równanie krzywej, dla której $\Delta = 0$ dla równania falowego
+		\[
+		u_{,t t} + 0 \cdot u_{,tx} - c^2 u_{,x x} =0 ?
+		\]
+		W naszych literkach wychodzi
+		\[
+		a = 1,\quad b = 0,\quad c = -c^2
+		.\]
+		Czyli
+		\[
+				\det \begin{bmatrix} 1&0&-c^2\\t'(s)&x'(s)&0\\0&t'(s)&g'(s) \end{bmatrix} = 0 \implies \left( x'(s) \right) ^2 - c^2 \left( t'(s) \right) ^2 = 0
+		.\]
+		Czyli $x'(s) = \pm ct'(s)$, czyli dostajemy dwie proste $x - ct = 0$ i $x + ct = 0,$ czyli po prostu stożek świetlny!\\
+		\textbf{Wniosek:} na stożku świetlnym nie zadajemy warunków brzegowych, bo to niegrzeczne.
+\end{przyklad}
+\begin{przyklad}
+		Niech
+		\[
+		\begin{cases}
+				u_{,x x} + u_{,y y} = 0\\
+				u(x,0) = g(x)
+		\end{cases}
+		.\]
+		Czy istnieje $g(x)\in \mathcal{C}^\infty,$ takie że równanie nie ma rozwiązań?\\
+		Pamiętamy, że jeżeli $u(x,y)$ (lub $u(x+iy)$) jest holomorficzna, to spełnia warunki Cauchy-Riemmana.\\
+		Wymyślmy funkcję, która jest gładka, ale nieanalityczna... na przykład taka
+		\[
+				f(x) = \begin{cases}
+						e^{-\frac{1}{x}}&x>0\\
+						0& \text{w p.p.}
+				\end{cases}
+		\]
+		Wtedy szereg $f(s) = \sum_{k} e^{-\sqrt{k}} \cos(kx)$ nie jest zbieżny.\\
+		Jeżeli więc $f$ - holomorficzna i $u(x,y) = \Re f$, to
+		\[
+				u_{,x x} + u_{,y y} = 0 \text{, gdy }f = u(x,y) + iv(x,y)
+		.\]
+		Oznacza to, że $u$ jest analityczna (musi być). Więc jeżeli na brzegu zadamy funkcję nieanalityczną, to rozwiązanie nie będzie istnieć (o ile udowodnimy mówiące o tym twierdzenie).
+\end{przyklad}
+\begin{przyklad}
+		(równanie przewodnictwa)\\
+		Mamy znane równanie
+		\[
+		u_{,t} - u_{,x x} = 0
+		.\]
+		W naszych literkach to jest $a = 0,$ $b = 0,$ $c = -1$.
+		\[
+				\det \begin{bmatrix} 0&0&-1\\t'(s)&x'(s)&0\\0&t'(s)&x'(s) \end{bmatrix} = 0
+		.\]
+		Czyli $(-1)(t'(s))^2 = 0$, czyli $t = const.$ Zauważmy, że $t = const$ oznacza, że na przykład $t = 0$ i to właśnie nasze ulubione sposoby zadawania warunków brzegowych.
+\end{przyklad}
+\begin{przyklad}
+		Znowu drut (przykład Kowalewskiej)
+		\[
+		\begin{cases}
+				u_{,t} - u_{,x x} = 0\\
+				u(x,0) = \frac{1}{1+x^2}
+		\end{cases}
+		.\]
+		Załóżmy, że
+		\[
+				u(x,t) = \sum_{m,n\ge 0} a_{m,n} \frac{x^mt^n}{m!n!}
+		,\]
+		gdzie $a_{m,n} = D^{m,n}u$ w zerze. Dla $t = 0$,
+		\[
+				u(x,t) = \frac{1}{1+x^2} = \frac{1}{1-(-x^2)} = \sum_{m\ge 0} (-1)^m x^{2m}
+		.\]
+		Czyli $a_{2m,0} = (-1)^m(2m)!$, $a_{2m+1,0} = 0 \cdot (2m)! = 0$. Tylko dla $n=0$ szereg $u(x,0)$ daje niezerowy układ. Ale
+		\[
+				a_{m,n} = \frac{\partial^{m+n}}{\partial x^{m}\partial t^n}
+		.\]
+		Więc
+		\[
+				a_{m,n+1} = \frac{\partial ^{m+n+1}}{\partial x^m t ^{n+1}} u(0) = \frac{\partial ^{m+n}}{\partial x^m \partial t^n} \frac{\partial }{\partial t} \left( u(0) \right) =\frac{\partial ^{m+n}}{\partial x^m \partial t^n} \frac{\partial^2 }{\partial x^2} \left( u(0) \right)
+		.\]
+		Czyli $a_{m,n+1} = a_{m+2,n}$. Czyli jeżeli $a_{m,n+1} = a_{m+2,n}$ i $a_{2n,0} = (-1)^m (2m)!$ i $a_{2m+1,0} = 0$, to znaczy, że
+		\begin{align*}
+				a_{2m,n} &= a_{2m+2n,0} = (-1)^{m+n}(2m+2n)!\\
+				a_{2m+1,n} &= a_{2m+1+2n,0} = a_{2(m+n)+1,0} = 0
+		.\end{align*}
+		Zatem (dla $u$ już nie na brzegu)
+\[
+		u(x,t) = \sum_{m,n\ge 0} \frac{a_{2m,n}x^{2m}t^n}{(2m)!n!} = \sum_{m,n\ge 0} (-1)^{m+n}(2m+2n)! \frac{x^{2m}t^n}{(2m)!n!}
+.\]
+Ale
+\[
+		\frac{(2m+2n)!}{(2m)!n!} \overset{m=n}{=} \frac{(4n)!}{(2n)!n!}
+.\]
+I z kryterium d'Alemberta $\frac{a_{n+1}}{a_n}$
+\[
+		\frac{(4(n+1))!}{(2(n+1))!(n+1)!} \frac{(2n)!n!}{(4n!}
+.\]
+Czyli problem
+\[
+\begin{cases}
+		u_{,t} - u_{,x x} = 0\\
+		u(x,0) = \frac{1}{1+x^2}
+\end{cases}
+.\]
+Nie ma rozwiązania analitycznego!
+\end{przyklad}
+\end{document}

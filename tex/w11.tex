@@ -1,0 +1,227 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+		Na ostatnim wykładzie przeszliśmy od rozwiązania 3-D do 2-D a potem do 1-D dla równania falowego.
+		Zobaczyliśmy też, że problem nadawania morsem, ewentualnie uderzania w stół można zasymulować przy pomocy odpowiednio dobranych warunków początkowych.
+		Co więcej, możliwość nadawania morsem zależy od liczby wymiarów, przy takim podejściu (dla odpowiednio przygotowanej funkcji $f$ da się też uzyskać prędkość nadświetlną - tak robiono przygotowując ośrodek przed wpuszczeniem do niego impulsu).
+\subsection{Całki Duhamela}
+Chcemy rozwiązać równanie falowe z siłą wymuszającą:
+\begin{align*}
+		&\frac{\partial ^2 u}{\partial t^2} -c^2 \Delta u = h(x,t),\quad x\in \mathbb{R}^3, t>0\\
+		&u(x,0) = f(x)\\
+		&u_{,t}(x,0) = g(x)
+,\end{align*}
+gdzie $h,g \in \mathcal{C^2}$, $f\in \mathcal{C}^3$ (chyba, że przejdziemy do słabych rozwiązań)
+\begin{przyklad}
+		równania maxwella to na przykład coś co wygląda tak:
+		\begin{align*}
+				\nabla \times B &= j + \frac{\partial E}{\partial t},\quad B = \nabla\times A\\
+				\nabla \times E &= - \frac{\partial B}{\partial t} ,\quad E = - \nabla \varphi
+		.\end{align*}
+		Ale można też tak (fajniej)
+		\[
+		d\star F = j
+		.\]
+\end{przyklad}
+\begin{tw}
+Chcemy rozłożyć problem na dwie części, jednorodną i niejednorodną. Rozwiązania jednorodne w 3-D przecież znamy a uzasadnienie sposobu (arbitralnego) wydzielenia części jednorodnej i niejednorodnej nie będzie potrzebne, jeżeli pojawi się twierdzenie o jednoznaczności. Załóżmy zatem, że $u(x,t) = w(x,t) + v(x,t)$, gdzie
+\[
+\begin{cases}
+		\frac{\partial ^2 }{\partial t^2} w - c^2\Delta w = 0\\
+		w(x,0) = f(x)\\
+		w_{,t}(x,0) = g(x)
+\end{cases}
+\text{, a }
+\begin{cases}
+		\frac{\partial ^2 v}{\partial t^2} - c^2 \Delta v = h(x,t)\\
+		v(x,0) = 0\\
+		v_{,t}(x,0) = 0
+\end{cases}
+x\in\mathbb{R}^3,t>0
+.\]
+\end{tw}
+\begin{proof}
+Suma rozwiązań odtworzy nam szukane $u(x,t)$. \\
+Rozwiązanie na $w(x,t)$ znamy z poprzedniego wykładu, wystarczy teraz przedstawić nasz warunek tak, by uzyskać równanie jednorodne, a $h(x,t)$ wrzucić do warunków brzegowych, bo możemy wtedy ponownie skorzystać z wcześniejszych rozwiązań.\\
+		Wyobraźmy sobie, że istnieje funkcja $\varphi(x,t,a)$, na $x\in \mathbb{R}^3, t>0, a>0$ taka, że
+		\[
+		\begin{cases}
+				\frac{\partial ^2}{\partial t^2} \varphi(x,t,a) - c^2 \Delta \varphi(x,t,a) = 0\\
+				\varphi(x,0,a) = 0\\
+				\varphi_{,t}(x,0,a) = h(x,a)
+		\end{cases}
+		.\]
+		Zauważmy, że $\varphi(x,t,a)$ zbudujemy wstawiając $f = 0$ i $g(x) = h(x,a)$ do wzoru Kirchoffa. Mając $\varphi(x,t,a)$ pokażemy, że funkcja
+		\[
+				v(x,t) = \int\limits_0^t \varphi(x,t-a,a)da
+		\]
+		jest rozwiązaniem naszego problemu, czyli problem sprowadzi się do wycałkowania wzoru Kirchoffa obecnego w $\varphi(x,t-a,a)$ po a.
+
+		\begin{przyklad}
+				Dla równań Maxwella
+				\[
+				\Delta \varphi - \frac{1}{c^2} \frac{\partial ^2 \varphi}{\partial t^2} = -4\pi \rho,\quad \Delta A - \frac{1}{c^2}\frac{\partial ^2 A}{\partial t^2} = -\frac{4\pi}{c}j
+				.\]
+				(dygresja - mamy taki fajny operator $\Box = \frac{\partial ^2}{\partial t^2} - \Delta$, ale nikomu nie mówcie - to tajemnica).
+		\end{przyklad}
+		Chcemy pokazać, że
+		\[
+				v(x,t) = \int\limits_0^t \varphi(x,t-a,a)da
+		\]
+		spełnia równanie
+		\[
+		\begin{cases}
+				v_{,t t}- c^2 \Delta v = h(x,t)\\
+				v(x,0) = 0\\
+				v_{,t}(x,0) = 0
+		\end{cases}
+		\text{, gdy}
+		\begin{cases}
+				\varphi_{,t t} - c^2 \Delta \varphi = 0 & x\in \mathbb{R}^2, t>0\\
+				\varphi(x,0,a) = 0 & a > 0\\
+				\varphi_{,t}(x,0,a) = h(x,a) &(\heartsuit)
+		\end{cases}
+		.\]
+		Ale
+		\[
+				v_{,t}(x,t) = \underbrace{\varphi(x,t-t,t)}_{\varphi(x,0,a)}+ \int\limits_0^t \varphi_{,t}(x,t-a,a)da
+		.\]
+		Więc
+		\[
+				v_{,t t}(x,t) = \underbrace{\varphi_{,t}(x,t-t,t)}_{(\heartsuit)} + \int\limits_0^t \varphi_{,t t}(x, t-a, a)da
+		.\]
+		A my wiemy, że
+		\[
+				c^2 \Delta v = c^2 \int\limits_0^t \Delta \varphi(x,t-a,a)da
+		,\]
+		no to w takim razie
+		\[
+				v_{,t t} - c^2 \Delta v = \underbrace{h(x,t)}_{\varphi_{,t}(x,0,t)}+ \int\limits_{0}^{t}(\varphi_{,t t}-\Delta \varphi)da = h(x,t)
+		.\]
+\end{proof}
+Wiemy ze wzoru Kirchoffa, że
+\[
+		\underbrace{\varphi(x,t) = \frac{1}{4\pi^2c^2 t}\int\limits_{|x'|=ct}g(x+x')d s'}_{\text{całka po sferze w 3-D o promieniu $ct$ i środku w $x\in\mathbb{R}^3$},}
+\]
+więc
+\[
+		\varphi(x,t-a,a) = \frac{1}{4\pi^2c^2(t-a)}\int\limits_{|x'|=c(t-a)}g(x+x')d s'
+.\]
+Można zrobić podstawienie $x + x' = \left[ x_0 + x, y_0+y, z_0+z \right] = \left[ \xi_0,\xi_1,\xi_2 \right] = \xi.$ Wtedy mamy całkę po kuli w środku $(x_0,y_0,z_0)$. Więc wyjdzie
+\[
+		\varphi(x,t-a,a) = \frac{1}{4\pi^2c^2(t-a)}\int\limits_{|\xi-x|=c(t-a)}g(\xi)d s_\xi
+.\]
+Zatem
+\[
+		v(x,t) = \int\limits_0^t \varphi(x,t-a,a)da
+,\]
+no a
+\[
+		\varphi(x,t-a,a) = \frac{1}{4\pi^2c^2(t-a)}\int\limits_{|\xi-x|=c(t-a)}g(\xi)d s_\xi
+.\]
+Więc
+\[
+		v(x,t) = \frac{1}{4\pi^2c^2}\int\limits_0^t \frac{da}{t-a}\int\limits_{|\xi-x|=c(t-a)}h(\xi,a)d s_\xi
+.\]
+\begin{pytanie}
+		Czy ten wynik ($v(x,t)$) da się przedstawić prościej? Czasami zamiast pisać $\int_0^1dx\int_0^{1-x}dy$ można napisać po prostu $\iint_{\text{trójkąt ograniczony $y=1-x$}}dxdy$
+\end{pytanie}
+Dla każdego ustalonego $a$ całkujemy po sferze o promieniu $c(t-a)$. Czyli mamy kolekcję sfer o promieniach od $0$ do $ct$. Chcemy sprawdzić ile to będzie w sensie czasoprzestrzennym i w sensie przestrzennym.\\
+Zamieńmy sobie zmienne. Niech $|\xi-x| = r$, czyli $c(t-a) = c \implies a = t- \frac{r}{c}$ i $da = -\frac{1}{c}dr$. Wtedy
+\begin{align*}
+		v(x,t) &= \frac{1}{4\pi^2c^2}\int\limits_{ct}^{0}\frac{-dr}{c} \int\limits_{|\xi-x|=r}\frac{h(\xi,t-\frac{r}{c})}{r}c d s_\xi = \\
+		&= \frac{1}{4\pi^2c^2}\int\limits_0^{ct}dr\int\limits_{|\xi-x|=r}d s_\xi \frac{h(\xi,t-\frac{r}{c})}{r} = \\
+		&= \frac{1}{4\pi^2c^2}\iiint\limits_{(x-x')^2 + (y-y')^2 + (z-z')^2 \le (ct)^2}\frac{h(x',y',z',t - \frac{|x-x'|}{c})}{|x-x'|}d^3x'
+.\end{align*}
+Co się właśnie stało? W przeciwieństwie do równania przewodnictwa, dostaliśmy jawną zależność od prędkości rozchodzenia się sygnału. Układ związany z niejednorodnością w punkcie $(x,t)$ zależy od zdarzeń, które miały miejsce odpowiednio wcześniej.
+\begin{przyklad}
+W przypadku elektrodynamiki
+\[
+		\begin{cases}
+				\frac{\partial ^2 \mathbf{A}}{\partial t^2} - c^2\Delta \mathbf{A} = 4\pi c \mathbf{j} & \text{gdzie } \mathbf{B} = \nabla\times \mathbf{A}\\
+				\frac{\partial ^2 \varphi}{\partial t^2} - c^2\Delta \varphi = 4\pi c \rho&\text{gdzie } \varepsilon = - \nabla \varphi + \frac{\partial A}{\partial t}
+		\end{cases}
+,\]
+gdzie $\mathbf{j}$ to na przykład cząstka naładowana poruszająca się po jakiejś trajektorii i wetdy na rozwiązanie, które uzyskaliśmy mówimy \textit{potencjały Lenarda-Wiecherta}.\\
+		Może zdarzyć się też tak (np. w przypadku fal dźwiękowych), że prędkość ośrodka jest większa, niż prędkość sygnału w ośrodku. Mamy wtedy fale uderzeniowe, efekt Czerenkowa i inne fajne ciekawostki.
+\end{przyklad}
+\begin{pytanie}
+Co z jednoznacznością?
+\end{pytanie}
+
+Pamiętamy, że badająć operator Rayleigh'a mogliśmy wyciągnąć dużo wniosków (własności $\lambda_n$) bez konieczności rozwiązywania równań. Zobaczmy co można zrobić z równaniem falowym.
+\begin{stw}
+		(lemat)\\
+		Niech $u(x,t): \mathbb{R}\times\mathbb{R}_+\to \mathbb{R}$ takie, że
+		\[
+		\begin{cases}
+				u_{,t t}- c^2 u_{,x x}= 0\\
+				u(x,0) = f(x)\\
+				u_{,t}(x,0) = g(x)
+		\end{cases}
+		,\]
+		gdzie $f$ i $g$ - takie, że $u_{,t}(x,t)$ i $u_{,x}(x,t)$ są klasy $\mathcal{L}^2(\mathbb{R})$. Wówczas wielkość
+		\[
+				\underset{t\ge 0}{\forall} \quad E(t) = \int\limits_{-\infty}^{+\infty}\left( \frac{1}{2}(u_{,t})^2 + \frac{c^2}{2}(u_{,x})^2 \right) dx
+		\]
+		jest skończona i stała.
+\end{stw}
+\textbf{Uwaga:} $E(t)$ wygląda jak energia całkowita układu, dla nośników zwartych $f$ i $g$ całka może być liczona na mniejszym obszarze.
+\begin{proof}
+		Wiemy, że
+		\[
+		\frac{\partial ^2}{\partial t^2} u = c^2 \frac{\partial ^2}{\partial x^2} u
+		.\]
+		Przemnożymy przez $u_{,t}$ i pocałkujemy po $x$
+		\[
+		\int\limits_{-\infty}^{+\infty}u_{,t}u_{,t t}dx
+		.\]
+		Uwaga, sztuczka - $\frac{1}{2}\int \frac{\partial }{\partial t} (\zeta(x,t))^2dx = \frac{1}{2}\int 2 \cdot \zeta(x,t) \cdot \zeta_{,t}(x,t)dx.$
+		\[
+				\frac{1}{2}\int\limits_{-\infty}^{+\infty}\frac{\partial }{\partial t} \left( u_{,t} \right) ^2 dx = \left.c^2 u_{,t}u_{,x}\right|_{-\infty}^{+\infty} - c^2 \int\limits_{-\infty}^{+\infty}u_{,tx}u_{,x}dx
+		.\]
+		wycałkowane znika, bo nośnik zwarty, czyli
+		\[
+				\frac{\partial }{\partial t} \int\limits_{-\infty}^{+\infty} \frac{1}{2}(u_{,t})^2dx = -c^2 \frac{\partial }{\partial t} \int\limits_{-\infty}^{+\infty}\left( u_{,x} \right) ^2 dx
+		.\]
+		Wszystko na jedną stronę
+		\[
+				\frac{\partial }{\partial t} \left[ \int\limits_{-\infty}^{+\infty}\frac{1}{2}(u_{,t})^2 + c^2 (u_{,x})^2 dx \right] = 0 \implies E(t) = const
+		.\]
+		Zatem $E(t) = E(0)$, a $u_{,t}(x,0) = g(x)$ i $u(x,0) = f(x)$, więc Znamy  $E(t)$.
+\end{proof}
+\begin{stw}
+		(lemat)\\
+		Niech
+		\[
+		\begin{cases}
+				u_{,t t}= c^2 u_{,x x}+h(x,t)&t>0,x\in\mathbb{R}\\
+				u(x,0) = f(x)\\
+				u_{,t}(x,0) = g(x)
+		,\end{cases}
+		\]
+		wówczas równanie posiada tylko jedno rozwiązanie.
+\end{stw}
+\begin{proof}
+		Niech $u_1(x,t)$, $u_2(x,t)$ - rozwiązania równania. Niech $u(x,t) = u_1(x,t) - u_2(x,t)$. Oznacza to, że $u(x,t)$ jest rozwiązaniem równania
+		\[
+		\begin{cases}
+				u_{,t t} = c^2 u_{,x x}\\
+				u(x,0)=0\\
+				u_{,t}(x,0) = 0
+		\end{cases}
+		.\]
+		A wiemy, że
+		\[
+				\underset{t\ge 0}{\forall} \int\limits_{-\infty}^{+\infty}\frac{1}{\varepsilon}(u_{,t})^2 + \frac{c^2}{2}(u_{,x})^2dx = E(t) = E(0) = 0
+		,\]
+		czyli $u_{,t} = 0$ i $u_{,x} = 0$, więc $u$ jest stałe ze względu na $t$ i $x$, czyli $u(x,t) = 0$ (bo warunki początkowe). W związku z tym,
+		\[
+				u_1(x,t) = u_2(x,t)
+		.\]
+\end{proof}
+\end{document}

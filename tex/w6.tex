@@ -1,0 +1,240 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+
+\begin{document}
+		Ostatnio mówiliśmy o metodzie separacji zmiennych. Chcielibyśmy przełożyć trudne równanie typu (atom wodoru)
+		\[
+				\psi_{x x} + \psi_{y y} + \psi_{z z} + \frac{2m}{\hbar ^2}\left( E+\frac{c^2}{4\pi \varepsilon_0 r} \right) \psi = 0
+		.\]
+		Na kilka prostych, postulując
+		\[
+				\psi(x,y,z) = \psi^x(x) \cdot \psi^y(y) \cdot \psi^z(z)
+				\]
+				lub
+				\[
+				\psi(r,\theta,\varphi) = \psi^r(r) \cdot \psi^\theta(\theta) \cdot \psi^\varphi(\varphi)
+				.\]
+				I otrzymać w efekcie trzy równania drugiego rzędu jednej zmiennej.
+
+				Równania można także przedstawić w formie bardziej znajomej
+				\[
+						a(t) \ddot{x} + b(t)\dot{x} + c(t)x = 0
+				,\]
+				lub mniej znajomej,
+				\[
+						- \frac{d}{dt}\left( p(t)\frac{dx}{dt} \right) + q(t)x(t) = \lambda r(t) x(t)
+				.\]
+		\begin{przyklad}
+				Równanie Bessela:
+				\[
+						x^2 y_{x x} + x y_x (x^2 - \alpha^2)y(x) = 0
+				.\]
+				Można zapisać też jako
+\[
+		\frac{d}{dx}\left( x \frac{dy}{dx} \right) + \left( x - \frac{\alpha^2}{x} \right) y(x) = 0
+,\]
+czyli
+\[
+		x \frac{d}{dx}\left( x \frac{dy}{dx} \right) + x^2 y(x) = \alpha^2y(x)
+.\]
+		\end{przyklad}
+Ta postać równania pomocna jest przy analizie rozwiązań, zależności od warunków brzegowych oraz dopuszczalnych wartości parametru $\lambda$.
+\[
+		L(y) = -\frac{1}{r(x)}\left( \frac{d}{dx}\left( p(x) \frac{dy}{dx} \right) + q(x) y(x) \right)
+.\]
+		Dlaczego taka postać?\\
+		Wartości własne mają interpretację fizyczną a wektory własne mogą tworzyć bazę, w której chcielibyśmy rozpisać warunki początkowe. Język, który to opisuje to oczywiście algebra.\\
+		Pamiętamy, że jeżeli $\left<.|. \right>$ - iloczyn skalarny, a $L$ - operator taki, że
+		\[
+		\underset{f,g}{\forall} \left<f|Lg \right> - \left<Lf|g \right> = 0
+		,\]
+		to wartości własne są rzeczywiste a wektory własne są prostopadłe. Prostopadłość daje nam bazę, możemy więc pytać jak taka baza nadaje się do przedstawienia w niej warunków brzegowych i co rozumiemy przez "przedstawienie". Co robić w sytuacji, gdy jednej wartości własnej odpowiada kilka wektorów własnych (klatki jordanowskie, poziomy energetyczne w atomie wodoru - orbitale s,p,d\ldots) dla tego samego $n$.\\
+		Mówiliśmy ostatnio jakie warunki powinny być spełnione, aby operator
+		\[
+				L(v) = -\frac{1}{r(x)}\left( \frac{d}{dx}\left( p(x) \frac{dv}{dx} \right) + q(x) v(x) \right)
+		\]
+		był samosprzężony. Wyszedł warunek
+		\[
+				p(x) \left( f'(x)\overline{g(x)} - f(x) \overline{g'(x)}  \right) _a^b = \left<f|Lg \right>- \left<Lf|g \right>
+		.\]
+		\begin{pytanie}
+				Mamy operator $L$ i jego wartości i wektory własne
+				\[
+				L \psi_n = \lambda_n \psi_n
+				.\]
+				Przysłano nam smsem funkcję $f$ i pytamy o to, że da się utworzyć szereg $\sum_n a_n \psi_n$ taki, żeby
+				\[
+						\sum_n (a_n\psi_n - f) \overset{n->\infty}{\longrightarrow} 0
+				.\]
+				Czyli żeby był zbieżny jednostajnie. Jeżeli dobierzemy sobie normę, to piszemy tak
+				\[
+				\Vert \sum a_n \psi_n - f \Vert \to 0
+				.\]
+				Jest to pytanie o możliwość dobrania współczynników $a_n$. Jak to zrobić?
+		\end{pytanie}
+		Weźmy funkcję
+		\[
+				E(a_1, a_2,...,a_N) = \left\Vert \sum_{n=1}^N a_n\psi_n - f \right\Vert ^2
+		.\]
+		Pytamy o taki zestaw $a_1,\dots,a_N$, dla którego funkcja  $E$ osiąga minimum. A potem zbudujemy ciąg cyferek.
+		\[
+				E(a_1),E(b_1,b_2),E(c_1,c_2,c_3),\dots E(a_1',a_2'\dots,a'_N)
+		\]
+		i pokażemy, że taki ciąg dąży (albo nie) do zera jak $N\to\infty$. Uwaga, dla każdego $N$, zestaw cyferek może być inny! Przykłady na znajdowanie $a_i$ były przy okazji szeregów fouriera. Załóżmy, że
+		\[
+		\left<\psi_n|\psi_k \right> = \delta_{nk}
+		.\]
+		Wówczas
+		\begin{align*}
+				E(a_1,\ldots,a_n) &= \left<f - \sum_{n=1}^N a_n\psi_n|f - \sum_{k=1}^Na_k\psi_k \right> = \left<f|f \right> + \\
+				&- \left<f|\sum_{k=1}^Na_k\psi_k \right> - \left<\sum_{n=1}^Na_n\psi_n|f \right> + \\
+				&+ \left<\sum_{n=1}^n a_n\psi_n | \sum_{k=1}^N a_k\psi_k \right> = \\
+				&= \Vert f \Vert ^2 - \sum_{k=1}^N \overline{a_k} \left<f|\psi_k \right> +\\
+				&- \sum_{n=1}^Na_n\left<\psi_n|f \right> + \sum_{n=1}^Na_n\sum_{k=1}^N\overline{a_k} \left<\psi_n|\psi_k \right>
+		.\end{align*}
+		Ale
+		\[
+		\sum_{n=1}^Na_n\sum_{k=1}^N\overline{a_k} \left<\psi_n|\psi_k \right> = \sum_{n=1}^Na_n\overline{a_n} = \sum_{n=1}^N |a_n|^2
+		.\]
+		Przenumerujemy wyrażenie z $k$, w efekcie:
+		\[
+				E(a_1,\ldots,a_N) = \Vert f \Vert ^2 - \sum_{n=1}^N \overline{a_n} \left<f|\psi_n \right> - \sum_{n=1}^Na_n\left<\psi_n|f \right> + \sum_{n=1}^N a_n \overline{a_n}
+		.\]
+		Traktując to jak przepis na $a_n$, widać, że dla
+		\[
+		a_n = \left<f|\psi_n \right>
+		,\]
+		$E$ będzie najmniejsze ($\left<\psi_n|f \right> = \overline{\left<f|\psi_n \right>} $).\\
+		I wtedy $0 \le \Vert f \Vert ^2 - \sum_{n=1}^N |a_n|^2$, więc
+		\[
+		\Vert f \Vert ^2 \ge \sum_{n=1}^N \Vert a_n \Vert ^2
+		.\]
+		Czyli o ile $f$ jest klasy $L^2$, to szereg po prawej stronie jest zbieżny, czyli
+		\[
+		\lim_{n \to \infty}a_n = 0
+		.\]
+		Uwaga: $a_n$ nie ulegnie już zmianie. Widzimy też, że przepis na $a_n$, z wykorzystaniem iloczynu skalarnego daje nam, dla ustalonego $N$ najbardziej optymalne przybliżenie.\\
+		Zauważmy, że nie pokazaliśmy jeszcze, że ciąg  $(E)$ dąży do zera. Pokazaliśmy zbieżność ciągu
+		\[
+		\Vert a_n \Vert ^2 = \Vert \left<f|\psi_n \right> \Vert ^2
+		,\]
+		ale chcielibyśmy pokazać, że
+		\[
+		\sum_{n=1}^N a_n\psi_n \to f
+		,\]
+		cyzli by w granicy na przykład
+		\[
+				\sum_{n=1}^\infty \Vert a_n \Vert ^2 = \Vert f \Vert ^2
+		.\]
+		Co więcej, nasze rozważania dotyczyły sytuacji, w której indeks $n$ jest na przykład dyskretny i ograniczony od dołu. Chcemy zatem odpowiedzieć na następne pytanie. Czy
+		\[
+		\sum_{k=0}^{N} c_k\psi_k
+		,\]
+		jest zbieżny (i jak) do $f\in L^2$, jeżeli
+\begin{enumerate}[a)]
+		\item $c_k = \left<f|\psi_k \right>$
+		\item $L \psi_k = \lambda \psi_k$
+		\item $\left<Lf|g \right> = \left<f|Lg \right>$
+\end{enumerate}
+gdzie $Lf = -\frac{1}{r(x)}\left( \left( pf' \right) '+ qf \right) $, $p(x) \left[ f'\overline{g}  - f \overline{g'}  \right] _a^b = 0.$
+Zacznijmy od pytania
+\begin{pytanie}
+		Kiedy wartości własne operatora Sturma-Liouville'a są nieujemne? (czy też ograniczone od dołu). W równaniu Schrödingera pojawia się warunek
+		\[
+		H\psi_n = E_n \psi_n
+		,\]
+		jeżeli cyferkę $E_n$ chcemy interpretować jako energię, to powinna być ograniczona od dołu.
+\end{pytanie}
+\begin{stw}
+		Wartości własne operatora Sturma-Liouville'a są nieujemne.
+\end{stw}
+\begin{proof}
+		Niech $R(u) = \frac{\left<Lu|u \right>}{\left<u|u \right>}$ będzie funkcją z $L^2\left( \left[ a,b \right]  \right) \to \mathbb{R}$. Zauważmy, że $R(u)$ nie jest normą operatora.
+		($\Vert A \Vert = \underset{\Vert x \Vert = 1}{\sup} \Vert Ax \Vert = \underset{x}{\sup} \frac{\left<Ax|Ax \right>}{\left<x|x \right>}$).\\
+		\textbf{Obserwacja:} jeżeli za $u$ wstawimy $\psi_n$, to dostaniemy
+		\[
+				R(\psi_n) = \frac{\left<L\psi_n|\psi_n \right>}{\left<\psi_n|\psi_n \right>} = \lambda_n \frac{\left<\psi_n|\psi_n \right>}{\left<\psi_n|\psi_n \right>} = \lambda_n
+		.\]
+		Wstawmy teraz do $R(u)$ funkcję f
+		\[
+				R(f) = \frac{\left<Lf|f \right>}{\left<f|f \right>}
+		,\]
+		więc
+		\begin{align*}
+				\left<f|f \right>R(f) &= \left<Lf|f \right> = \int\limits_a^b \left( -\left( pf' \right) ' - qf \right) \overline{f} dx = \\
+				&= -pf'\left.\overline{f} \right|_a^b + \int\limits_a^b \left( pf' \overline{f'} - qf\overline{f}  \right) dx
+		.\end{align*}
+		Zatem
+		\[
+				R(f) = -\frac{(pf')\overline{f}|_a^b}{\left<f|f \right>} + \frac{\int\limits_a^b p \Vert f' \Vert ^2 - q\Vert f \Vert ^2}{\left<f|f \right>}
+		.\]
+		Jeżeli oba człony będą większe od zera, to
+		\[
+				R(f) > 0 \implies \lambda > 0
+		.\]
+\end{proof}
+		Widzimy zatem, że jeżeli $\underset{f}{\forall} $
+		\[
+				-\left( pf'\right)\overline{f}|_a^b  \ge 0,g(x) \le 0
+		,\]
+		to wtedy $R(f) > 0$ pod warunkiem, że $L$ jest samosprzężony. Czyli
+		\[
+				\underset{f,g}{\forall} p\left.\left( f'\overline{g} - f \overline{g'}  \right) \right|_a^b = 0,\quad Lf = -\frac{1}{r}\left( qf + \left( pf' \right)'  \right)
+		.\]
+		Nie zapominajmy, że był jeszcze jeden warunek związany z ilością wektorów własnych (w sensie wymiaru przestrzeni) dla danej wartości własnej:
+		\[
+				p(x)\left( f(x)g'(x) - f'(x)g(x) \right) = 0 \underset{x\in [a,b]}{\forall}
+		.\]
+\begin{przyklad}
+		Trudno uzyskane współczynniki nazwać inaczej niż zagmatwanymi. Zobaczymy, czy dla prostych operatorów wartości własne rzeczywiście są ograniczone z dołu. Niech $L = - \frac{d^2}{dx^2}$, szukamy wektorów własnych dla warunków $\psi(0) = 0,\quad \psi(1) = 0$.
+		Czyli
+		\[
+				\frac{d^2\psi}{dx^2} + \lambda \psi = 0
+		.\]
+		Czyli $q = 0$, $p = 1$. Warunek
+		\[
+				p(x) \left( f'(x)\overline{g} - f \overline{g'}  \right)_0^1 = 1 \cdot \left[ \psi_1'(x)\overline{\psi_2}(x) - \psi_1(x) \overline{\psi_2'} (x) \right] _0^1
+		.\]
+		Dla $\begin{matrix} L\psi_1 = \lambda_1\psi_1\\ L\psi_2 = \lambda_2\psi_2 \end{matrix} $ ale przy warunkach $\begin{matrix} \psi(0) = 0\\ \psi(1) = 0  \end{matrix} $ widać, że jest ok. Co więcej,
+				\[
+						-\left( p(x) \psi'(x) \right) \overline{\psi} (x)|_0^1 \ge 0
+				\]
+				też jest ok.\\
+				Sprawdzamy
+				\[
+						\psi''+ \lambda \psi = 0,\quad \begin{matrix} \psi(0) = 0\\ \psi(1) = 0 \end{matrix}
+				.\]
+\begin{itemize}
+		\item Jeżeli $\lambda < 0$, to mamy rozwiązanie typu
+				\[
+						\psi(x) = A_k e^{-k^2 x} + B_k e^{k^2 x}
+				,\]
+				ale warunek brzegowy nam daje sprzeczność!
+		\item Jeżeli $\lambda = 0$, to rozwiązanie jest
+				\[
+				\psi = Ax + B
+				.\]
+				Wtedy z warunkiem brzegowym wyjdzie, że $\psi = 0$
+		\item Jeżeli $\lambda > 0$, to rozwiązanie
+				\[
+						\psi(x) = A_k\sin\left( \sqrt{k^2} x \right)+ B_k \cos\left(\sqrt{k^2} x \right)
+				.\]
+				Warunki brzegowe zostawią
+				\[
+						A_k\sin(k) = 0
+				.\]
+				Więc $k = n\pi$ dla  $n$ całkowitych, czyli
+				\[
+				\lambda_n = n^2 \pi^2
+				\]
+				dla $n$ naturalnych.
+\end{itemize}
+Pokazaliśmy więc, że wartości własne tego operatora są ograniczone od dołu.
+
+		\textbf{W następnym odcinku} Dla powyższego przykładu zauważymy, że $\lambda_1 < \lambda_2 < \lambda_3 < \ldots$. Gdyby była to prawda dla każdego operatora Sturma-Liouville'a, oznaczałoby to, że możemy wartości własne uporządkować i mieć na przykład gwarancję, że poziomy energetyczne będą rosnąć.
+\end{przyklad}
+
+\end{document}

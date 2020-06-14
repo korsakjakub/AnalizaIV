@@ -1,0 +1,117 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+    {"../img/"}
+    {"img/"}
+}
+
+\begin{document}
+\subsection{teoria}
+Równanie
+\[
+    w(z)f'' + p(z)f' + q(z)f(z) = 0
+.\]
+    Wybieramy sobie punkt ze sfery Riemanna ($z_0\in \overline{\mathbb{C}} = \mathbb{C}\cup \left\{ \infty \right\}$) i teraz mamy $3$ opcje.
+    \begin{enumerate}
+        \item $\frac{p}{w}$ oraz $\frac{q}{w}$ są holomorficzna w $z_0$ - nieosobliwym.
+        \item $z_0$ nie jest nieosobliwy, ale $(z-z_0)\frac{p}{w}$ oraz $\left( z-z_0 \right) ^2 \frac{q}{w}$ są holomorficzne regularnie osobliwe.
+        \item Pozostałe - nieregularnie osobliwy.
+    \end{enumerate}
+    W nieskończoności bierzemy $u = \frac{1}{z}$ i patrzymy na zachowanie w $u = 0$.
+    \subsection{zadania}
+    \[
+        (z-1)^2f'' + (z-1)f' - f = 0
+    .\]
+Proszę sklasyfikować wszystkie punkty sfery Riemanna względem tego równania.
+
+Trzeba sprawdzić holomorficzność funkcji $\frac{p}{w}$ i $\frac{q}{w}$, czyli
+\[
+    \frac{p}{w} = \frac{z-1}{(z-1)^2},\quad \frac{q}{w} = -\frac{1}{(z-1)^2}
+.\]
+Jak się $\frac{p}{w}$ przemnoży przez $z-1$, to wychodzi $1$, czyli holomorficzne, jak się przemnoży $\frac{q}{w}$ przez $(z-1)^2$, to wyjdzie $-1$, czyli też ok.\\
+Teraz chcemy przepisać równanie w zmiennej $u = \frac{1}{z}$.
+\[
+    \left( \frac{1}{u} - 1 \right) ^2 \left[ f\left(\frac{1}{u}\right) \right]'' + \left( \frac{1}{u} - 1 \right) \left[ f\left( \frac{1}{u} \right)  \right]' - \left[ f\left( \frac{1}{u} \right)  \right] = 0
+.\]
+Weźmy sobie $g(u) = f\left( \frac{1}{u} \right)$, teraz np.
+\[
+    \frac{dg(u)}{du} = \left.\frac{df(z)}{dz}\right|_{z = \frac{1}{u}}\frac{d\left( \frac{1}{u} \right) }{du} = -\frac{1}{u^2} f'
+.\]
+I druga pochodna
+\[
+    \frac{d^2g(u)}{du^2} = \frac{2}{u^3}f' - \left.\frac{1}{u^2}\frac{df'(z)}{dz}\right|_{\frac{1}{u}} \left( -\frac{1}{u^2} \right)
+.\]
+Teraz można przepisać równanie
+\begin{align*}
+    &\left(\frac{1}{u} - 1\right)^2 u^4 \left(g'' + \frac{2}{u}g'\right) - \left(\frac{1}{u} - 1\right)u^2 g' - g = 0 \implies\\
+    &g'\left( \frac{1}{u} - 1 \right) ^2 u^4 + g'\left( \left( \frac{1}{u} - 1 \right) ^2 u^4 \frac{2}{u} + u^2 \right) - g = 0 \implies\\
+    &\left( \frac{1}{u} - 1 \right) ^2 u^3 + u^2 = 2\left( \frac{1}{u^2 - \frac{2}{u} + 1} \right) u^3 + u^2 =\\
+    &=2u - 4u^2 + 2u^3 + u^2 = -2u^3 - 3u^2 + 2u\implies\\
+    &\frac{2u^3 - 3u^2 + 2u}{\left( u - u^2 \right) ^2} = \frac{2u^3 - 3u^2 + 2u}{u^2(1 - u)^2}
+.\end{align*}
+
+$z_0\in \overline{\mathbb{C}}$ - nieosobliwy. Wtedy
+\[
+    f = f_1 + f_2 = \sum_{n=0}^{\infty} a_n\left( z-z_0 \right) ^n
+.\]
+Szukamy rozwiązań równania w postaci jak wyżej (w $z = 0$, bo tak łatwo będzie)
+\begin{align*}
+    f' &= \sum_{n=0}^{\infty} a_n\left( z-z_0 \right)^{n-1}\\
+    f'' &= \sum_{n=0}^{\infty} a_n\left( n-1 \right)n \left( z-z_0 \right)^{n-2}
+.\end{align*}
+\[
+    \left( z-1 \right) ^2 f'' + \left( z-1 \right) f' - f = 0
+.\]
+\[
+    \left( z-1 \right) ^2 \sum_{n=0}^{\infty} a_n\left( n-1 \right) nz^{n-2} + \left( z-1 \right)\sum_{n=0}^{\infty} a_n n z^{n-1} - \sum_{n=0}^{\infty} a_nz^n = 0
+.\]
+\[
+    \sum_{n=0}^{\infty} a_n(n-1)n(z^n - 2z^{n-1}+z^{n-2}) + \sum_{n=0}^{\infty} a_n n \left( z^n - z^{n-1} \right) - \sum_{n=0}^{\infty} a_nz^n = 0
+.\]
+Czyli
+\[
+    \sum_{n=0}^{\infty} \left[ a_n\left( n-1 \right) n \left( z^n - 2z^{n-1} + z^{n-2} \right) - a_n n \left( z^n - z^{n-1} \right) - a_nz^n \right] = 0
+.\]
+\begin{align*}
+    &\sum_{n=0}^{\infty} z^n \left[ a_n \left( n-1 \right) n + a_n n - a_n \right] + \sum_{k = -1}^{\infty} z^k \left[ -2a_{k+1}k(k+1) - a_{k+1}(k+1) \right] +\\
+    &+ \sum_{k = -1}^{\infty} a_{k+2}(k+1)(k+2)z^k =\\
+    &= \sum_{n=0}^{\infty} z^n\left[ a_n(n-1)n + a_n n - a_n - 2a_{n+1}n(n+1) - a_{n+1}(n+1) + a_{n+2}(n+1)(n+2) \right] = 0
+.\end{align*}
+dalej jak się przyjmie $\left( a_0, a_1 \right) = (1,-1)$, $(a_0, a_1) = (1,1)$ i podstawiać i może wyjdzie.
+
+\subsubsection{równanie schrödingera}
+\[
+    \left[ \frac{p^2}{2m} + \frac{1}{2}kx^2 \right] \psi = E \psi,\quad E\in \mathbb{R}
+.\]
+po fajnych podstawieniach wyjdzie
+\[
+    u'' - 2xu' + 2\lambda u = 0
+.\]
+Szukamy wokół $x_0 = 0$.
+\begin{align*}
+    u' &= \sum_{n=0}^{\infty} a_nn z^{n-1}\\
+    u'' &= \sum_{n=0}^{\infty} a_n n (n-1) z^{n-2}
+.\end{align*}
+Czyli mamy tak o
+\begin{align*}
+    &\sum_{n=0}^{\infty} \left[ a_n n (n-1)x^{n-2} - 2 a_n n x^n + 2\lambda a_n x^n \right] = 0\\
+    &\sum_{n=0}^{\infty} \left[ x^n\left( 2\lambda a_n - 2n a_n \right) + x^{n-2}\left( a_n n(n-1) \right)  \right] = 0\\
+    &\sum_{n=0}^{\infty} x^n(2\lambda a_n - 2n a_n) + \sum_{k=0}^{\infty} (a_{k+2} (k+1)(k+2)) = 0
+.\end{align*}
+To teraz
+\[
+    a_n(2\lambda - 2n) = -a_{n+2}(n+1)(n+2) \implies a_{n+2} = \frac{-2(\lambda - n)}{(n+1)(n+2)} a_n
+.\]
+wstawiamy $\psi = e ^{-\frac{x^2}{2}}u(x)$
+\[
+    u(x) = \sum a_nx^n
+.\]
+to jak się założy  $n+2 \approx n$ mamy tak
+\[
+    a_{n+2} = \frac{-2\left( \frac{\lambda}{n} - 1 \right) }{\left( 1+\frac{1}{n} \right) \left( n+2 \right) } a_n \overset{n\to \infty}{\longrightarrow} \frac{2}{n}a_n
+.\]
+to wyjdzie
+\[
+    a_n = \frac{c_1}{(-1 + \frac{n}{2})!} + \frac{(-1)^n c_2}{(-1 + \frac{n}{2})}
+.\]
+
+\end{document}

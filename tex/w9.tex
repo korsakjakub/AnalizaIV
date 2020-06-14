@@ -1,0 +1,176 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{
+		{"../img/"}
+		{"img/"}
+}
+\begin{document}
+		Na ostatnim wykładzie pojawiły się rozwiązania równania falowego dla struny nieskończonej i półnieskończonej. Analizując rozwiązania staramy się pamiętać, że chcemy zapytać o możliwość nadawania morsem, czyli o to jak sygnał wysłany ma się do sygnału odebranego. Dla struny półnieskończonej rozwiązanie wygląda tak
+		\[
+				u(x,t) = \begin{cases}
+						\frac{\partial }{\partial t} \frac{1}{2c}\int\limits_{ct-x}^{ct+x}f(s)d s + \frac{1}{2c}\int\limits_{ct-x}^{ct+x} g(\xi)d\xi & x-ct < 0\\
+						\frac{f(x-ct) + f(x+ct)}{2} + \frac{1}{2c}\int\limits_{x-ct}^{x+ct}g(\xi)d\xi &x-ct > 0
+				\end{cases}
+		.\]
+		A równanie było takie
+		\[
+		\frac{\partial ^2 u}{\partial t^2} = c^2 \frac{\partial ^2 u}{\partial x^2},\quad t>0,\quad x>0
+		.\]
+		Z warunkami brzegowymi
+		\begin{align*}
+				u(0,x) &= f(x)\\
+				u_{,t}(0,x) &= g(x)\\
+				u(0,t) &= 0
+		.\end{align*}
+		Chcemy teraz rozwiązać problem trójwymiarowy, tzn.
+\begin{align*}
+		u_{,tt} &= c^2 \Delta u\\
+		u(x,0) &= f(x)\\
+		u_{,t}(x,0) &= g(x)
+.\end{align*}
+Przykładami mogą być balon nakłuty szpilką, zderzenie dwóch samochodów, zapalenie żarówki itp. Chcemy rozwiązanie znaleźć używając metody dla struny półnieskończonej. Żeby skorzystać z rozwiązania dla struny półnieskończonej musimy przekształcić równanie
+tak, aby pojawił sie problem falowy w jednej zmiennej. W tym celu wybierzemy punkt $x\in \mathbb{R}^3$ i sferę o promieniu $r$ i środku w $x$. Wprowadzimy teraz nową funkcję
+\[
+		\overline{u} (x,r,t) = \frac{1}{4\pi r^2}\int\limits_{|x'| = r}u(x+x',t)d s'
+.\]
+$\overline{u} (x,r,t)$ jest wartością średnią funkcji $u$, będącej rozwiązaniem (zakładamy, że takowe istnieje) równania $u_{,t t} = c^2 \Delta u$. Zauważmy, że
+\[
+		\lim_{r \to 0}\overline{u} (x,r,t) = u(x,t) \quad\text{(zakładamy, że $u(x,t)$ - ciągła}
+.\]
+Po co takie dziwne obiekty? Bo nie mamy separacji zmiennych.
+\begin{stw}
+		(Lemat): Warunki
+		\begin{align*}
+				u_{,t t} &= c^2 \Delta u \quad x\in \mathbb{R}^3, t>0\\
+				u(x,0) &= f(x)\\
+				u_{,t}(x,0) &= g(x)
+		\end{align*}
+		sa równoważne warunkowi na $\overline{u} (x,r,t)$:
+		\begin{equation}
+				\label{eq:rownowazne}
+				\overline{u}_{,t t} (x,r,t) = c^2 \frac{\partial^2}{\partial r^2} \overline{u} (x,r,t) + 2c^2 \frac{1}{r} \frac{\partial }{\partial r} \overline{u} (x,r,t)\quad r\ge 0
+		\end{equation}
+		(dla $\mathbb{R}^n: \overline{u} _{,t t}(x,r,t) = c^2 \frac{\partial ^2}{\partial r^2} \overline{u} (x,r,t) + c^2 \frac{n-1}{r} \frac{\partial }{\partial r} \overline{u} (x,r,t)$) + warunki początkowe. \\
+\end{stw}
+		Zauważmy, że zmieniła się zmienna, po której różniczkujemy. Równanie \ref{eq:rownowazne} nie jest równaniem falowym dla jednej zmiennej. Zanim udowodnimy \ref{eq:rownowazne}, zobaczymy, co da się z nim zrobić.
+
+		Co mamy?
+		\begin{align*}
+				u_{,t t} &= c^2 \Delta u\\
+				u(x,0) &= f(x)\\
+				u_{,t}(x,0) = g(x)
+		\end{align*}
+		i warunki równoważne
+		\begin{align*}
+				\overline{u} (x,r,t) &= \frac{1}{4\pi r^2} \int\limits_{|x'|=r}u(x+x',t)d \overline{s}'\\
+				\overline{u}_{,t t} &= c^2 \overline{u}_{,r r} + 2c^2 \frac{1}{r} \overline{u} _{,r}
+		.\end{align*}
+		Wprowadzamy $v(x,r,t) = r \overline{u} (x,r,t)$. Czyli mamy coś takiego
+		\begin{align*}
+				v(x,r,0) &= r \overline{u} (x,r,0) = \underbrace{\frac{1}{4\pi r^2} \int\limits_{|x'| = r}f(x+x')d s'}_{\overline{f} (x,r)}\\
+				v_{,t}(x,r,0) &= r \overline{u} _{,t}(x,r,0) = \underbrace{\frac{1}{4\pi r^2} \int\limits_{|x'|=r} g(x+x')d s'}_{\overline{g} (x,r)}
+		.\end{align*}
+		No i dodatkowo $v(x,0,t) = 0$, dla  $t\ge 0$.\\
+		Powyższe warunki pasowałyby dla struny półnieskończonej, jeżeli pokazalibyśmy, że
+		\[
+				\frac{\partial ^2}{\partial t^2} v(x,r,t) = c^2 \frac{\partial ^2}{\partial r^2} v(x,r,t),\quad r>0
+		,\]
+		to mając rozwiązanie dla $v$ z problemu 1-D przeszlibyśmy do $\overline{u} (x,r,t)$, bo \[
+				\overline{u} (x,r,t) = \frac{1}{r}v(x,r,t)
+		,\]
+		a potem z $r$ do zera.\\
+		Ale!
+		\begin{align*}
+				v_{,t t} &= r \overline{u} _{,t t} = r\left( c^2 \overline{u} _{,rr} + 2 c^2 \frac{1}{r} \overline{u} _{,r} \right) = rc^2 \overline{u} _{,rr} + 2c^2 \overline{u} _{,r} = \\
+				&= c^2 \left( r \overline{u}\right) _{,rr} = c^2 v_{,rr} = \\
+				&= c^2 \left( r \overline{u}  \right) _{,rr} = c^2 v_{,rr}
+		.\end{align*}
+		Wniosek: $\overline{v} $ spełnia 1-D równanie falowe w $r$!
+		\begin{proof}
+				(lematu)\\
+				Scałkujmy stronami równanie falowe $u_{,t t} = c^2 \Delta u$ :
+				\begin{align*}
+						\int\limits_{K(x,r)}u_{,t t}(x,t)dV &= c^2 \int\limits_{K(x,r)}\Delta u dV = c^2 \int\limits_{K(x,r)}\nabla(\nabla u) dV = \\
+						&= c^2 \int\limits_{\partial K(x,r)}\nabla u \cdot \overline{n} d s = c^2 \int\limits_{\partial K(x,r)}\frac{\partial u}{\partial \overline{n}} d s
+				.\end{align*}
+				Czyli
+				\[
+						\int\limits_{K(x,r)}u_{,t t}(x,t)dV = c^2 \int\limits_{\partial K(x,r)} \frac{\partial u}{\partial \overline{n} } d s
+				.\]
+				Przejdźmy sobie do współrzędnych kulistych
+				\[
+						x' = \begin{bmatrix} x_1'\\x_2'\\x_3' \end{bmatrix} = \begin{bmatrix} r'\cos\theta'\sin\varphi'\\
+		r'\cos\theta'\cos\varphi'\\
+		r'\sin\theta'
+		\end{bmatrix}
+				.\]
+				\begin{align*}
+						\int\limits_{K(x,r)}u_{,t t}(x,t)dV &\to \int\limits_{|x'|\le r}u_{,t t}(x+x',t)dV' =\\
+						&= \int\limits_{0}^r dr' r'^2 \int\limits_{0}^{2\pi}d\varphi' \int\limits_0^{\pi}d\theta' \sin\theta' u_{,t t}(x+x'(r',\theta',\varphi'),t) = \\
+						&= \int\limits_0^\pi d\theta'\sin\theta' \int\limits_0^{2\pi} d\varphi' r^2 c^2 \frac{\partial }{\partial r} u(x+x'(r,\theta',\varphi'),t)
+				,\end{align*}
+				bo
+				\[
+						\int\limits_{|x'|\le r}u_{,t t}(x+x', t)dV' = c^2 \int\limits_{|x'| = r}\frac{\partial u}{\partial n} d s'
+				.\]
+				Pamiętamy, że $d s' = r^2 \sin\theta' d\theta'd\varphi'$. Dalej mamy
+				\begin{align*}
+						&\int\limits_{0}^{r} dr' r'^2 \int u_{,t t}(x+x'(r',\theta',\varphi'))\sin\theta'd\varphi'd\theta' = \\
+						&= r^2 c^2 \int\limits \frac{\partial u}{\partial r} (x+x'(r',\theta',\varphi'))\sin\theta'd\varphi'd\theta'
+				.\end{align*}
+				Jak zróżniczkujemy stronami po $r$, to dostaniemy
+				\[
+						r^2 \frac{\partial ^2}{\partial t^2} \int\limits_{|x'|=r}u(x+x',t)d s' = 2c^2c \frac{\partial }{\partial r} \int\limits_{|x'|=4}u(x+x',t)d s + c^2r^2 \frac{\partial ^2}{\partial r^2} \int\limits_{|x'|=r}u(x+x',t)d s
+				.\]
+				Ale
+				\[
+						\overline{u} (x,r,t) = \frac{1}{4\pi r^2}\int\limits_{|x'|=r}u(x+x',t)d s'
+				,\]
+				więc po podzieleniu przez $4\pi r^2$,
+				\[
+						r^2 \overline{u} _{,t t}(x,r,t) = 2c^2 r \overline{u} (x,r,t) + c^2 \overline{u} _{,r r}(x,r,t)
+				.\]
+		\end{proof}
+		Udało nam się udowodnić lemat, wiemy już, że $v(x,r,t)$ spełnia równanie falowe dla struny półnieskończonej i że mająć $v(x,r,t)$ możemy odzyskać $u(x,t)$ poprzez przejście
+		\[
+				u(x,t) = \lim_{r \to 0}\frac{v(x,r,t)}{r}
+		,\]
+		gdzie
+		\[
+				v(x,r,t) = \frac{1}{2}\left[ v(x,r+ct,0) - v(x,ct-r,0) \right] + \frac{1}{2c}\int\limits_{ct-r}^{ct+r}v_{,t}(x,s,0)d s
+		.\]
+		(dla $ct-r>0$ ). Zatem
+		\[
+				u(x,t) = \lim_{r \to 0^+}\frac{v(x,r,t)}{r} = \lim_{r \to 0^+}\frac{v(x,r,t) - v(x,0,t)}{r} = \left.\frac{\partial v}{\partial r} \right|_{r=0}
+		.\]
+		Ale
+		\begin{align*}
+				\frac{\partial }{\partial r} \left.\left( \frac{1}{2c}\int\limits_{ct-r}^{ct+r}v_{,t}(x,s,0)d s \right)\right|_{r=0} &= \frac{1}{2c}\left.\left( v_{,t}(x,ct+r,0) + v_{,t}(x,ct-r,0) \right) \right|_{r=0} = \\
+				&= \left.\frac{1}{c}r \overline{g} (x,r)\right|_{r=ct}
+		.\end{align*}
+		Ale
+		\begin{align*}
+				\left.\frac{1}{c}r \overline{g} (x,r) \right|_{r=ct} &= \left.\frac{1}{c} \frac{1}{4\pi r^2} r \int\limits_{|x'|=r} g(x+x')d s'\right|_{r=ct} = \\
+				&= \frac{1}{c} \frac{ct}{4\pi (ct)^2} \int\limits_{|x'| = ct}g(x+x')d s = \frac{1}{4\pi c^2 t} \int\limits_{|x'| = ct} g(x+x')d s
+		.\end{align*}
+		To jeszcze załatwimy drugą część równania
+		\begin{align*}
+				&\left.\frac{\partial }{\partial r} \left( v(x,r+ct,0) - v(x,ct-r,0) \right)\right|_{r=0} =\\
+				&= \lim_{r \to 0} \frac{v(x,r+ct,0) - v(x,ct,0)}{r} + \lim_{r \to 0}\frac{v(x,ct+(-r),0) - v(x,ct,0)}{-r} = \\
+				&= 2 \left.\frac{\partial v(x,r,0}{\partial r}\right|_{r = ct} = 2 \left.\frac{\partial }{\partial r} \left( r \overline{f} (x,r) \right) \right|_{r=ct} = \\
+				&= 2 \frac{\partial }{\partial r} \left.\left( r \int\limits_{|x'| = r} f(x+x')d s \cdot \frac{1}{4 \pi r^2}\right) \right|_{r=ct} = \frac{2}{4 \pi} \frac{\partial }{\partial r} \left.\left( \frac{1}{r}\int\limits_{|x'|=r}f(x+x')d s' \right) \right|_{r = ct}
+		.\end{align*}
+		Chcielibyśmy ostatnie wyrażenie zamienić na zróżniczkowane po $t$ :
+		\[
+				\left.	\frac{\partial }{\partial r} \int\limits_{|x'| = r}f(x+x')d s\right|_{r=ct} = \frac{1}{c^2}\frac{\partial }{\partial t} \int\limits_{|x'|=ct}f(x+x')d s
+		.\]
+		No i
+		\[
+				\left.\frac{\partial }{\partial r} \left( \frac{1}{r} \right) \right|_{r=ct} = \frac{1}{c^2}\frac{\partial }{\partial t} \left( \frac{1}{t} \right)
+		.\]
+		Dostaliśmy nareszcie wzór Kirchoffa!
+		\[
+				u(x,t) = \frac{1}{4\pi c^2} \left[ \frac{\partial }{\partial t} \left( \frac{1}{t}\int\limits_{\partial K(x,ct)}f(x) d s \right)  \right] + \frac{1}{4\pi c^2 t}\int\limits_{\partial K(x,ct)}g(s) d s
+		\]
+		dla $f\in \mathcal{C}^3(\mathbb{R}^3)$ i $g\in \mathcal{C}^2(\mathbb{R}^3)$.
+
+\end{document}
